@@ -1,0 +1,33 @@
+table{
+    border-collapse:separate;
+    border-spacing:0 15px;
+}
+table tr td:first-child{
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    color: #1FA5FF;
+}
+table tr td:last-child{
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+}
+tr{
+    margin : 10px;
+}
+td{
+    text-align: center;
+    border: 1px solid #1FA5FF;
+    color: #727272;
+    padding:5px
+}
+ul{
+    color:#0087E0;
+    list-style-type: none;
+    text-align: center;
+}
+
+.carousel-inner .item  > img {
+    width:100%;
+    height:400px;
+    object-fit: cover;
+}

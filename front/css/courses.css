@@ -1,0 +1,131 @@
+
+table{
+    table-layout: auto;
+    width: 100%;
+}
+th{
+    padding: 10px;
+    text-align: center;
+    color : #1A4C89;
+    font-weight: bold;
+}
+td{
+     text-align: center;
+     border: 2px solid #343333;
+     color: #727272;;
+ }
+
+#selected_courses i{
+    color : #FF595E;
+    background-color: #ffffff;
+    font-size: 1.2em;
+}
+#selected_courses th{
+    border: 2px solid #343333;
+}
+#selected_courses button{
+    background-color: #ffffff;
+    border : none;
+}
+#selected_courses tr td:last-child{
+    color : #1A4C89;
+}
+
+#courses{
+    border: 2px solid #0087E0;
+}
+#courses th{
+    border-bottom: 2px solid #0087E0;
+}
+#courses tr:last-child td{
+    border-bottom: none;
+}
+#courses tr td:last-child{
+    border: none;
+}
+#courses tr td:first-child{
+    border-right: none;
+}
+#courses tr td:nth-child(7){
+    color : #1A4C89;
+}
+
+.submit-form-container{
+    display: flex;
+    padding: 10px 30px;
+    align-items: center;
+    justify-content: space-between;
+    border:2px solid #0087E0;
+    border-top:none;
+}
+.submit-form-container label{
+    color : #1A4C89;
+}
+.submit-form-container span{
+    display: flex;
+    justify-content: space-between;
+}
+
+.refresh-btn{
+    background-color: #AAAAAA;
+    color : #ffffff;
+    border: none;
+    margin-left: 3px;
+}
+
+.form-container{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.search-input{
+    text-align: center;
+    background-color: #f2f2f2;
+    height: 2.1em;
+}
+
+#search-form{
+    border-radius: 5px;
+    border: 2px solid #9B9B9B;
+    width: 40%;
+    /*fix*/
+    height: 3em;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 1em;
+    margin-bottom: 1em;
+}
+
+.submit-btn{
+    background-color: #06D6A0 ;
+    color: #FFFFFF;
+    border:2px solid #06D6A0;
+}
+
+.btn-container{
+    display: flex;
+    align-content: center ;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    margin-bottom: 30px;
+
+}
+.btn-container button{
+    color: #707070;
+    border: 2px solid #9B9B9B;
+    background-color: #FFFFFF;
+    min-width: 14%;
+    font-weight: bold;
+}
+
+.icon-add{
+    color: #FFFFFF;
+    background-color: #5CB85C;
+    border: none;
+}
+.icon-circular-clock{
+    color: #FFFFFF;
+    background-color: #AAAAAA;
+    border: none;
+}
