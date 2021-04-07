@@ -1,10 +1,10 @@
 html{
-    --top-spacing:100px;
+    --navbar-height:60px;
     direction: rtl;
 }
 body{
-    scroll-padding-top: var(--top-spacing); /*fixed navbar overlap content*/
-    margin: var(--top-spacing) auto;
+    scroll-padding-top: var(--navbar-height); /*fixed navbar overlap content*/
+    margin: var(--navbar-height) auto;
 }
 button{
     border-radius: 5px;
@@ -22,7 +22,7 @@ button{
     justify-content: space-between;
     align-items: center;
     border-bottom: 2px solid #0087E0;
-    height: 60px;
+    height: var(--navbar-height);
     background-color: #FEFEFE;
 }
 .navbar div{
@@ -61,6 +61,16 @@ button{
     justify-content: center;
 }
 
+/*table.center{
+
+    margin-left:auto;
+    margin-right:auto;
+}*/
+table{
+    table-layout: auto;
+    width: 100%;
+}
+
 /*table caption*/
 .caption{
     background-color: #0087E0;
@@ -70,6 +80,7 @@ button{
     color: #FFFFFF;
     margin-right: 30px;
     margin-bottom: -1em;
+    margin-top: 30px;
     position:relative;
 }
 
