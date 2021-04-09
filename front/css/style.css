@@ -1,5 +1,9 @@
 @import url('../vazir-fonts/fonts.css');
 
+* {
+    font-family: Vazir;
+}
+
 html{
     --navbar-height:60px;
     direction: rtl;
