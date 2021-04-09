@@ -18,12 +18,24 @@ td{
     text-align: center;
     border: 1px solid #1FA5FF;
     color: #727272;
-    padding:5px
+    padding:5px;
 }
 ul{
     color:#0087E0;
     list-style-type: none;
     text-align: center;
+}
+ul span{
+    color: #626262;
+}
+ul li{
+    margin:1em;
+}
+ul img{
+    border-radius: 50%;
+    border: 3px solid #1FA5FF;
+    height: 110px;
+    margin: 1em 0;
 }
 
 .carousel-inner .carousel-item  > img {
@@ -37,3 +49,8 @@ ul{
     height: 10px;
     border-radius: 100%;
 }
+/*.label{
+    border: 2px solid #0087E0;
+    border-radius: 5px;
+    padding: 0.1em 0.5em;
+}*/
