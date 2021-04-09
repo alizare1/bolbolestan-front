@@ -1,3 +1,5 @@
+@import url('../vazir-fonts/fonts.css');
+
 html{
     --navbar-height:60px;
     direction: rtl;
