@@ -83,10 +83,20 @@ table {
     right: 5%;
 }
 
+.main-div span,
+td, th {
+    color: #595757;
+}
+
 .course-info span {
     display: block;
     overflow: hidden;
     text-overflow: ellipsis;
+}
+
+.course-info span:nth-child(2),
+.course-info span:nth-child(3) {
+    font-weight: bold;
 }
 
 .ekhtesasi-box {
