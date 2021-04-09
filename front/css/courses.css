@@ -125,3 +125,25 @@ td{
     background-color: #AAAAAA;
     border: none;
 }
+.type-box {
+    color: #FFFFFF;
+    border-radius: 5px;
+    padding: 0 0.5em;
+    display: flow-root;
+    margin: 0 0.4em;
+}
+.takhasosi-box {
+    background-color: #1FA5FF;
+}
+
+.asli-box {
+    background-color: #06D6A0;
+}
+
+.omumi-box {
+    background-color: #EDBB41;
+}
+
+.paye-box {
+    background-color: #FF595E;
+}
