@@ -102,7 +102,7 @@ table{
 
 
 .footer{
-    height: 50px;
+    height: auto;
     background-color:#1A4C89;
     color : #FFFFFF;
     display: flex;
