@@ -118,3 +118,6 @@ table{
 .footer div:last-child i{
     font-size : 1.4em;
 }
+i{
+    vertical-align: sub;
+}
