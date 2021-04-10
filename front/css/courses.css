@@ -162,3 +162,16 @@ td{
     background-color: #93D3FF !important;
     border-color: #93D3FF !important;
 }
+
+#courses > tbody > tr > td:nth-child(3),
+#courses > tbody > tr > td:nth-child(7) {
+    font-weight: bold;
+    color: #356197;
+} {
+    font-weight: bold;
+    color: #356197;
+}
+
+.cap-full {
+    color: #727272 !important;
+}
