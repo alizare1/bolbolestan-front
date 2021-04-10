@@ -123,4 +123,8 @@ td, th {
     table {
         table-layout: auto;
     }
+
+    .course-info span {
+        font-size: 60%;
+    }
 }
