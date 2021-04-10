@@ -7,7 +7,7 @@ th{
 }
 td{
      text-align: center;
-     border: 2px solid #343333;
+     border: 2px solid #707070;
      color: #727272;;
  }
 
@@ -18,7 +18,7 @@ td{
     font-family: Arial !important;
 }
 #selected_courses th{
-    border: 2px solid #343333;
+    border: 2px solid #707070;
 }
 #selected_courses button{
     background-color: #ffffff;
@@ -54,6 +54,7 @@ td{
     justify-content: space-between;
     border:2px solid #0087E0;
     border-top:none;
+    border-radius: 0 0 5px 5px;
 }
 .submit-form-container label{
     color : #1A4C89;
@@ -80,6 +81,8 @@ td{
     text-align: center;
     background-color: #f2f2f2;
     height: 2.1em;
+    border-radius: 5px;
+    border: 2px solid #A9A9A9;
 }
 
 #search-form{
