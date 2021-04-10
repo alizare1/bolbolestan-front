@@ -119,11 +119,13 @@ td{
     color: #FFFFFF;
     background-color: #5CB85C;
     border: none;
+    margin: 0.2em;
 }
 .icon-circular-clock{
     color: #FFFFFF;
     background-color: #AAAAAA;
     border: none;
+    margin: 0.2em;
 }
 
 .type-box{
