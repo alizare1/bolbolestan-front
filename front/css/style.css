@@ -122,3 +122,9 @@ table{
 i{
     vertical-align: sub;
 }
+.box{
+    border-radius: 5px;
+    padding: 0 0.5em;
+    display: flow-root;
+    margin: 0 0.5em;
+}

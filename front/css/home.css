@@ -49,8 +49,19 @@ ul img{
     height: 10px;
     border-radius: 100%;
 }
-/*.label{
-    border: 2px solid #0087E0;
-    border-radius: 5px;
-    padding: 0.1em 0.5em;
-}*/
+
+.indeterminate-box{
+    border: 2px solid #666666;
+    color: #666666;
+    background-color: #D8D8D8;
+}
+.passed-box{
+    border: 2px solid #5CB85C;
+    color: #5CB85C;
+    background-color: #D6EDD6;
+}
+.failed-box{
+    border: 2px solid #FF595E;
+    color: #FF595E;
+    background-color: #FFD5D6;
+}

@@ -125,12 +125,7 @@ td{
     background-color: #AAAAAA;
     border: none;
 }
-.box {
-    border-radius: 5px;
-    padding: 0 0.5em;
-    display: flow-root;
-    margin: 0 8%;
-}
+
 .type-box{
     color: #FFFFFF;
 }
