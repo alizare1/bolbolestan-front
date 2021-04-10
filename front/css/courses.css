@@ -169,7 +169,8 @@ td{
 }
 
 #courses > tbody > tr > td:nth-child(3),
-#courses > tbody > tr > td:nth-child(7) {
+#courses > tbody > tr > td:nth-child(7),
+#selected_courses > tbody > tr > td:nth-child(6) {
     font-weight: bold;
     color: #356197;
 }
