@@ -65,3 +65,34 @@ ul img{
     color: #FF595E;
     background-color: #FFD5D6;
 }
+
+.passed-grade {
+    color: #5CB85C;
+    font-weight: bold;
+}
+
+.failed-grade {
+    color: #FF595E;
+    font-weight: bold;
+}
+
+.indeterminate-grade {
+    color: #666666;
+    font-weight: bold;
+}
+
+.avg-box {
+    border: solid 2px #1FA5FF;
+    color: #1FA5FF;
+    font-weight: bold;
+    align-self: flex-end;
+    padding: 0.4em;
+    padding-left: 1em;
+    padding-right: 1em;
+    margin-left: 0;
+}
+
+.st-status-box {
+    border: solid 1px #1FA5FF;
+    padding: 0.3em;
+}
