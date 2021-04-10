@@ -127,3 +127,9 @@ i{
     display: flow-root;
     margin: 0 0.5em;
 }
+
+.caption > label {
+    font-weight: 900;
+    font-size: 1.1rem;
+    padding-top: 0.5em;
+}
