@@ -179,3 +179,7 @@ td{
 .cap-full {
     color: #727272 !important;
 }
+
+.submit-form-container > label {
+    font-weight: bold;
+}
