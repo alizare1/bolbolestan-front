@@ -1,3 +1,6 @@
+body{
+    background-color: #FBFBFB;
+}
 table{
     border-collapse:separate;
     border-spacing:0 15px;
@@ -95,4 +98,8 @@ ul img{
 .st-status-box {
     border: solid 1px #1FA5FF;
     padding: 0.3em;
+}
+.ul-container{
+    border-left: 4px solid #0087E0;
+    background-color: #FFFFFF;
 }

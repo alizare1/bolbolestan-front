@@ -1,3 +1,6 @@
+body{
+    background-color: #FBFBFB;
+}
 .table-header {
     display: flex;
     justify-content: space-between;
@@ -8,6 +11,7 @@
     border:2px solid #0087E0;
     border-radius: 0.5em;
     margin: 2em;
+    background-color: #FFFFFF;
 }
 
 .table {
