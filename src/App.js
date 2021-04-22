@@ -1,7 +1,7 @@
 import './App.css';
 import { useState } from 'react';
 import { useEffect } from 'react';
-import { BrowserRouter, Route } from 'react-router-dom';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import NavBar from './common/NavBar';
 import Footer from './common/Footer';
 import 'bootstrap/dist/css/bootstrap.min.css';
