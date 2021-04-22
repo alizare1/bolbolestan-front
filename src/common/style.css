@@ -1,7 +1,8 @@
 @import url('vazir-fonts/fonts.css');
+@import url('vazir-fd-fonts/font-face-FD.css');
 
 * {
-    font-family: Vazir;
+    font-family: Vazir FD;
 }
 
 html{
