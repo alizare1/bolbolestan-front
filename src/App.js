@@ -10,10 +10,16 @@ import './common/reset.css';
 import './common/style.css';
 import Login from './login/Login';
 import { userExists } from './services/SessionUtils';
+import { addCourse, getStudent, getStudentPlan, resetSelection } from './services/Students';
+import { getCourse, getCourses } from './services/Courses';
+import Home from './home/Home';
 
 
 export function TestHook() {
   const [count, setCount] = useState(0);
+  const [data, setData] = useState({});
+  const [plan, setPlan] = useState([0]);
+  
   useEffect( () => {
     console.log('hey ' + count);
     document.title = 'title ' + count;
@@ -24,9 +30,30 @@ export function TestHook() {
     console.log('testing did mount');
   }, []);
 
+  const func = () => {
+    setCount(count+2);
+    getStudent(123).then(d => setData(d)).catch(e => console.log(e.response.data));
+    getStudentPlan(123).then(d => setPlan(d));  
+    addCourse('123', '8101001', '1')
+      .then(d => console.log(d))
+      .catch(e => console.log(e.response.data));
+    resetSelection('123')
+      .then(d => console.log(d))
+      .catch(e => console.log(e.response.data));
+    getCourses(null, "Asli")
+      .then(d => console.log(d))
+      .catch(e => console.log(e.response.data));
+    getCourse("8101001", "1")
+      .then(d => console.log(d))
+      .catch(e => console.log(e.response.data));
+    
+  }
 
   return (
-    <p onClick={() => setCount(count+2)}>{count}</p>
+    <p onClick={func}>
+      {count}
+      <p>{data.name}</p>
+    </p>
   )
 }
 
@@ -37,7 +64,7 @@ function App() {
       <Switch>
         <Route path='/' children={<TestHook />} exact />
         <Route path='/login/' children={<Login />} />
-        <Route path='/home/' children={<TestHook />} />
+        <Route path='/home/' children={<Home />} />
         <Route path='/schedule/' children={<TestHook />} />
         <Route path='/courses/' children={<TestHook />} />
         <Route children={<TestHook />} /> {/* fallback */}
@@ -48,7 +75,9 @@ function App() {
   return (
     <div className="App">
       <NavBar />
-      {userExists() ? routes : <Login />}
+      <div className="wrapper">
+        {userExists() ? routes : <Login />}
+      </div>
       <Footer />
     </div>
   );
