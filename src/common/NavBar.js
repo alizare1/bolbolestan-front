@@ -2,11 +2,14 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Route, Switch } from 'react-router';
 import { BrowserRouter, Link } from 'react-router-dom';
+import { userExists } from '../services/SessionUtils';
+import LogoutDialog from './LogoutDialog';
+import logo from './logo.png';
 
 function HomeLinks(props) {
     return (
         <div>
-            <img src="logo.png" alt="logo" />
+            <img src={logo} alt="logo" />
             <a href="courses">انتخاب واحد</a>
             <a href="schedule">برنامه هفتگی</a>
         </div>
@@ -16,7 +19,7 @@ function HomeLinks(props) {
 function ScheduleLinks(props) {
     return (
         <div>
-            <img src="logo.png" alt="logo" />
+            <img src={logo} alt="logo" />
             <a href="home">خانه</a>
             <a href="courses">انتخاب واحد</a>
         </div>
@@ -26,7 +29,7 @@ function ScheduleLinks(props) {
 function CoursesLinks(props) {
     return (
         <div>
-            <img src="logo.png" alt="logo" />
+            <img src={logo} alt="logo" />
             <a href="home">خانه</a>
             <a href="schedule">برنامه هفتگی</a>
         </div>
@@ -34,7 +37,9 @@ function CoursesLinks(props) {
 }
 
 function NavBar(props) {
-
+    function logout() {
+        ReactDOM.render(<LogoutDialog/>, document.getElementById('logtest'));
+    }
     return (
         <header>
             <div className="navbar navbar-expand fixed-navbar">
@@ -47,7 +52,7 @@ function NavBar(props) {
                     </Switch>
                 </BrowserRouter>
                 <div>
-                    <a href="/logout">خروج<i class="flaticon-log-out"></i></a>
+                    { userExists() && <LogoutDialog />}
                 </div>
             </div>
         </header>
