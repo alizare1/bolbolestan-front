@@ -1,0 +1,136 @@
+@import url('../vazir-fonts/fonts.css');
+
+* {
+    font-family: Vazir;
+}
+
+html{
+    --navbar-height:60px;
+    direction: rtl;
+}
+body{
+    scroll-padding-top: var(--navbar-height); /*fixed navbar overlap content*/
+    margin: var(--navbar-height) auto;
+}
+button{
+    border-radius: 5px;
+}
+
+.fixed-navbar {
+    overflow: hidden;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 10000; /*push navbar to front*/
+}
+.navbar{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid #0087E0;
+    height: var(--navbar-height);
+    background-color: #FEFEFE;
+}
+.navbar div{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-right: 5%;
+}
+.navbar div:first-child a{
+    color: #1FA5FF;
+    margin : 1em;
+}
+.navbar img{
+    object-fit: scale-down;
+    height: 50px;
+}
+.navbar div:last-child a{
+    color: #FF8084;
+    margin-left:2em;
+}
+.navbar div:last-child i{
+    color: #FF8084;
+    margin-left:2em;
+}
+.main{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    margin-left: 4%;
+    margin-right: 4%;
+    /* margin-top: 80px;    navbar overlap content fix  navbar height + margin top*/
+}
+.wrapper{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+/*table.center{
+
+    margin-left:auto;
+    margin-right:auto;
+}*/
+table{
+    table-layout: auto;
+    width: 100%;
+}
+
+/*table caption*/
+.caption{
+    background-color: #0087E0;
+    border-radius: 5px;
+    width: 10em;
+    text-align: center;
+    color: #FFFFFF;
+    margin-right: 30px;
+    margin-bottom: -1em;
+    margin-top: 30px;
+    position:relative;
+}
+
+.table-container{
+    display : flex;
+    padding: 30px;
+    flex-direction: column;
+    justify-content: center;
+    border: 2px solid  #0087E0;
+    border-radius: 5px;
+    background-color: #FFFFFF;
+}
+
+
+.footer{
+    height: auto;
+    background-color:#1A4C89;
+    color : #FFFFFF;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: absolute;
+    width: 100%;
+}
+
+.footer div{
+    margin: 20px;
+}
+.footer div:last-child i{
+    font-size: 1.6em;
+    margin: 0.2em;
+}
+i{
+    vertical-align: sub;
+}
+.box{
+    border-radius: 5px;
+    padding: 0 0.5em;
+    display: flow-root;
+    margin: 0 0.5em;
+}
+
+.caption > label {
+    font-weight: 900;
+    font-size: 1.1rem;
+    padding-top: 0.5em;
+}

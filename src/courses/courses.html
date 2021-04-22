@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>انتخاب واحد</title>
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="../css/font/flaticon.css">
+    <link rel="stylesheet" type="text/css" href="../css/reset.css">
+    <link rel="stylesheet" type="text/css" href="../css/style.css">
+    <link rel="stylesheet" type="text/css" href="../css/courses.css">
+</head>
+<body>
+<div class="wrapper">
+    <header>
+        <div class="navbar navbar-expand fixed-navbar">
+            <div>
+                <img src="../images/logo.png" alt="logo" >
+                <a href="home.html">خانه</a>
+                <a href="schedule.html">برنامه هفتگی</a>
+            </div>
+            <div>
+            <a href="">خروج<i class="flaticon-log-out"></i></a>
+            </div>
+        </div>
+    </header>
+
+    <div class = "main">
+        <div class = "caption">
+            <label> دروس انتخاب شده</label>
+        </div>
+        <div class = "table-container">
+            <table id="selected_courses">
+                <tr>
+                    <th></th>
+                    <th>وضعیت</th>
+                    <th>کد</th>
+                    <th>نام درس</th>
+                    <th>استاد</th>
+                    <th>واحد</th>
+                </tr>
+                <tr>
+                    <td>
+                        <form action="" method="POST" >
+                            <input  type="hidden" name="action" value="remove">
+                            <button type="submit"><i class="flaticon-trash-bin"></i></button>
+                        </form>
+                    </td>
+                    <td><span class="box finalized-box">ثبت شده</span></td>
+                    <td>۸۱۰۱۸۶۴-۰۱</td>
+                    <td>پایگاه داده‌ها</td>
+                    <td>آزاده شاکری</td>
+                    <td>۳</td>
+                </tr>
+                <tr>
+                    <td>
+                        <form action="" method="POST" >
+                            <input  type="hidden" name="action" value="remove">
+                            <button type="submit"><i class="flaticon-trash-bin"></i></button>
+                        </form>
+                    </td>
+                    <td><span class="box finalized-box">ثبت شده</span></td>
+                    <td>۱۱۲۰۰۰۱-۰۱</td>
+                    <td>اندیشه اسلامی ۱</td>
+                    <td>محمد تنها</td>
+                    <td>۲</td>
+                </tr>
+                <tr>
+                    <td>
+                        <form action="" method="POST">
+                            <input type="hidden" name="action" value="remove">
+                            <button type="submit"><i class="flaticon-trash-bin"></i></button>
+                        </form>
+
+                    </td>
+                    <td><span class="box non-finalized-box">ثبت نهایی نشده</span></td>
+                    <td>۸۱۰۱۲۹۹-۰۱</td>
+                    <td>مهندسی نرم‌افزار</td>
+                    <td>رامتین خسروی </td>
+                    <td>۳</td>
+                </tr>
+                <tr>
+                    <td>
+                        <form action="" method="POST" >
+                            <input  type="hidden" name="action" value="remove">
+                            <button type="submit"><i class="flaticon-trash-bin"></i></button>
+                        </form>
+                    </td>
+                    <td><span class="box waiting-box">در انتظار</span></td>
+                    <td>۸۱۰۱۶۱۲-۰۱</td>
+                    <td>نظریه زبان‌ها و ماشین‌ها</td>
+                    <td>حکیمه فدایی</td>
+                    <td>۳</td>
+                </tr>
+            </table>
+        </div>
+        <div>
+            <form class="submit-form-container" action="" method="POST">
+                <label style="float:right">تعداد واحد ثبت شده: ۱۵</label>
+                <span>
+                    <button class="refresh-btn" type="submit" name="action" value="reset">
+                        <i class="flaticon-refresh-arrow"></i>
+                    </button>
+                    <button class="submit-btn" type="submit" name="action" value="submit">ثبت نهایی</button>
+                </span>
+            </form>
+        </div>
+
+        <div>
+            <form id="search-form" class="form-container" action="" method="POST">
+                <input class = "search-input" type="text" name="search" value="" placeholder="نام درس">
+
+                <button class="submit-btn" type="submit" name="action" value="search">
+                    جستجو  <i class="flaticon-loupe submit-btn"></i>
+                </button>
+
+            </form>
+        </div>
+
+
+        <div class = "caption">
+            <label> دروس ارائه شده</label>
+        </div>
+        <div class = "table-responsive-sm">
+            <div class = "btn-container">
+                <!-- ul? -->
+                <button class="selected-filter">همه</button>
+                <button>اختصاصی</button>
+                <button>پایه</button>
+                <button>اصلی</button>
+                <button>عمومی</button>
+            </div>
+
+            <table id="courses">
+                <tr>
+                    <th></th>
+                    <th>کد</th>
+                    <th>ظرفیت</th>
+                    <th>نوع</th>
+                    <th>نام درس</th>
+                    <th>استاد</th>
+                    <th>واحد</th>
+                    <th>توضیحات</th>
+                </tr>
+                <tr>
+                    <td>
+                        <form action="" method="POST" >
+                            <input  type="hidden" name="action" value="add">
+                            <button class="icon-add"> <i class="flaticon-add "></i> </button>
+                        </form>
+                    </td>
+                    <td>۱۱۲۰۰۰۱-۰۱</td>
+                    <td>۲۶/۵۰</td>
+                    <td><span class="type-box box omumi-box">عمومی</span></td>
+                    <td>اندیشه اسلامی ۱</td>
+                    <td>محمد تنها</td>
+                    <td>۲</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>
+                        <form action="" method="POST" >
+                            <input  type="hidden" name="action" value="add">
+                            <button class="icon-circular-clock"><i class="flaticon-clock-circular-outline"></i></button>
+                        </form>
+                    </td>
+                    <td>۱۱۲۰۱۴۲-۰۱</td>
+                    <td class="cap-full">۵۰/۵۰</td>
+                    <td><span class="type-box box omumi-box">عمومی</span></td>
+                    <td>تاریخ تحلیلی صدر اسلام</td>
+                    <td>حامد آل یمین </td>
+                    <td>۲</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>
+                        <form action="" method="POST" >
+                            <input  type="hidden" name="action" value="add">
+                            <button class="icon-add"> <i class="flaticon-add "></i> </button>
+                        </form>
+                    </td>
+                    <td>۱۱۲۰۰۱۰-۰۱</td>
+                    <td>۳۰/۵۲</td>
+                    <td><span class="type-box box omumi-box">عمومی</span></td>
+                    <td>اندیشه اسلامی ۲</td>
+                    <td>حسین حجت‌خواه</td>
+                    <td>۲</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>
+                        <form action="" method="POST" >
+                            <input  type="hidden" name="action" value="add">
+                            <button class="icon-add"> <i class="flaticon-add"></i> </button>
+                        </form>
+                    </td>
+                    <td>۱۱۲۰۰۵۱-۰۱</td>
+                    <td>۱۷/۵۰</td>
+                    <td><span class="type-box box omumi-box">عمومی</span></td>
+                    <td>زبان انگلیسی</td>
+                    <td>مرتضی زاهدی</td>
+                    <td>۳</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>
+                        <form action="" method="POST">
+                            <input type="hidden" name="action" value="add">
+                            <button class="icon-add"> <i class="flaticon-add "></i> </button>
+                        </form>
+                    </td>
+                    <td>۸۱۰۱۳۲۲-۰۱</td>
+                    <td>۴۷/۱۰۰</td>
+                    <td><span class="type-box box asli-box">اصلی</span></td>
+                    <td>برنامه سازی پیشرفته</td>
+                    <td>رامتین خسروی</td>
+                    <td>۳</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>
+                        <form action="" method="POST" >
+                            <input  type="hidden" name="action" value="add">
+                            <button class="icon-add"> <i class="flaticon-add"></i> </button>
+                        </form>
+                    </td>
+                    <td>۸۱۰۱۴۵۶-۰۱</td>
+                    <td>۶۳/۷۰</td>
+                    <td><span class="type-box box asli-box">اصلی</span></td>
+                    <td>ساختمان داده‌ها</td>
+                    <td>هشام فیلی</td>
+                    <td>۳</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td> <form action="" method="POST" >
+                            <input  type="hidden" name="action" value="add">
+                            <button class="icon-circular-clock"><i class="flaticon-clock-circular-outline"></i></button>
+                        </form>
+                    </td>
+                    <td>۸۱۰۱۶۱۲-۰۱</td>
+                    <td class="cap-full">۶۳/۶۰</td>
+                    <td><span class="type-box box asli-box">اصلی</span></td>
+                    <td>نظریه زبان‌ها و ماشین‌ها</td>
+                    <td> حکیمه فدایی</td>
+                    <td>۳</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>
+                        <form action="" method="POST" >
+                            <input  type="hidden" name="action" value="add">
+                            <button class="icon-add"> <i class="flaticon-add"></i> </button>
+                        </form>
+                    </td>
+                    <td>۸۱۰۱۶۵۲-۰۱</td>
+                    <td>۲۶/۵۰</td>
+                    <td><span class="type-box box paye-box">پايه</span></td>
+                    <td>آمار و احتمال مهندسی</td>
+                    <td>بهنام بهرک </td>
+                    <td>۳</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>
+                        <form action="" method="POST" >
+                            <input  type="hidden" name="action" value="add">
+                            <button class="icon-circular-clock"><i class="flaticon-clock-circular-outline"></i></button>
+                        </form>
+                    </td>
+                    <td>۱۱۲۰۴۳۱-۰۱</td>
+                    <td class="cap-full">۴۱/۴۰</td>
+                    <td><span class="type-box box paye-box">پايه</span></td>
+                    <td>فیزیک ۱</td>
+                    <td> زهرا زهرایی </td>
+                    <td>۳</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>
+                        <form action="" method="POST" >
+                            <input  type="hidden" name="action" value="add">
+                            <button class="icon-add"> <i class="flaticon-add"></i> </button>
+                        </form>
+                    </td>
+                    <td>۸۱۰۱۰۴۸-۰۱</td>
+                    <td>۲۶/۵۰</td>
+                    <td><span class="type-box box paye-box">پايه</span></td>
+                    <td>کارگاه کامپیوتر</td>
+                    <td>علی محمدی</td>
+                    <td>۱</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>
+                        <form action="" method="POST" >
+                            <input  type="hidden" name="action" value="add">
+                            <button class="icon-circular-clock"><i class="flaticon-clock-circular-outline"></i></button>
+                        </form>
+                    </td>
+                    <td>۸۱۰۱۸۶۴-۰۱</td>
+                    <td class="cap-full">۷۷/۷۵</td>
+                    <td><span class="type-box box takhasosi-box">تخصصی</span></td>
+                    <td>پایگاه داده‌ها</td>
+                    <td>آزاده شاکری</td>
+                    <td>۳</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>
+                        <form action="" method="POST" >
+                            <input  type="hidden" name="action" value="add">
+                            <button class="icon-add"> <i class="flaticon-add"></i> </button>
+                        </form>
+                    </td>
+                    <td>۸۱۰۱۲۲۲-۰۱</td>
+                    <td>۲۶/۵۰</td>
+                    <td><span class="type-box box takhasosi-box">تخصصی</span></td>
+                    <td>آزمون نرم‌افزار</td>
+                    <td>احسان خامس‌پناه</td>
+                    <td>۳</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>
+                        <form action="" method="POST" >
+                            <input type="hidden" name="action" value="add">
+                            <button class="icon-add"> <i class="flaticon-add"></i> </button>
+                        </form>
+                    </td>
+                    <td>۸۱۰۱۱۱۱-۰۱</td>
+                    <td>۲۶/۵۰</td>
+                    <td><span class="type-box box takhasosi-box">تخصصی</span></td>
+                    <td>اقتصاد مهندسی</td>
+                    <td>محمد آزادنیا </td>
+                    <td>۳</td>
+                    <td></td>
+                </tr>
+            </table>
+
+        </div>
+    </div>
+    <footer>
+        <div class="footer">
+            <div>
+                <i class="flaticon-copyright"></i>
+                <span>دانشگاه تهران-سامانه جامع بلبل‌ستان</span>
+            </div>
+            <div>
+                <i class="flaticon-facebook"></i>
+                <i class="flaticon-linkedin-logo"></i>
+                <i class="flaticon-instagram"></i>
+                <i class="flaticon-twitter-logo-on-black-background"></i>
+            </div>
+        </div>
+    </footer>
+
+</div>
+
+</body>
+</html>
