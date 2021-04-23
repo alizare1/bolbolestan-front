@@ -1,4 +1,3 @@
-import './App.css';
 import { useState } from 'react';
 import { useEffect } from 'react';
 import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
@@ -13,6 +12,7 @@ import { getUsername, userExists } from './services/SessionUtils';
 import { addCourse, getStudent, getStudentPlan, resetSelection } from './services/Students';
 import { getCourse, getCourses } from './services/Courses';
 import Home from './home/Home';
+import Schedule from './schedule/Schedule';
 
 
 export function TestHook() {
@@ -59,6 +59,7 @@ export function TestHook() {
 
 function App() {
   const [student, setStudent] = useState({});
+  const [term, setTerm] = useState(0);
   const [loggedIn, setLoggedIn] = useState(false);
 
   useEffect(() => {
@@ -66,6 +67,7 @@ function App() {
       getStudent(getUsername())
       .then(st => {
         setStudent(st);
+        setTerm(Object.keys(st.grades).length+1)
         setLoggedIn(true);
       })
       .catch(e => {
@@ -78,7 +80,7 @@ function App() {
       <Switch>
         <Route path='/' children={<Home student={student} />} exact />
         <Route path='/home' children={<Home student={student} />} />
-        <Route path='/schedule' children={<TestHook />} />
+        <Route path='/schedule' children={<Schedule term={term} />} />
         <Route path='/courses' children={<TestHook />} />
         <Route children={<Home student={student} />} /> {/* fallback */}
       </Switch>
