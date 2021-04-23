@@ -44,7 +44,7 @@ function Profile(props) {
                 <li> نام: <span>{props.student.name} {props.student.secondName}</span></li>
                 <li>شماره دانشجویی: <span>{props.student.id}</span></li>
                 <li>تاریخ تولد: <span>{props.student.birthDate}</span></li>
-                <li>معدل کل <span>{props.student.gpa && props.student.gpa.toPrecision(4)}</span></li>
+                <li>معدل کل <span>{props.student.gpa.toPrecision(4)}</span></li>
                 <li>واحد گذرانده: <span>{props.student.passedUnitsCount}</span></li>
                 <li>دانشکده: <span>{props.student.faculty}</span></li>
                 <li>رشته: <span>{props.student.field}</span></li>
@@ -130,8 +130,11 @@ function HomeBody(props) {
     const [student, setStudent] = useState({'grades': {}});
     const [loaded, setLoaded] = useState(false);
     useEffect(() => {
-        getStudent(localStorage.getItem('username')).then(st => setStudent(st));
-        setLoaded(true);
+        getStudent(localStorage.getItem('username'))
+            .then(st => {
+                setStudent(st);
+                setLoaded(true);
+            });
     }, []);
 
     return (

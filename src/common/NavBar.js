@@ -37,9 +37,6 @@ function CoursesLinks(props) {
 }
 
 function NavBar(props) {
-    function logout() {
-        ReactDOM.render(<LogoutDialog/>, document.getElementById('logtest'));
-    }
     return (
         <header>
             <div className="navbar navbar-expand fixed-navbar">
