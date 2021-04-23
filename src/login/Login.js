@@ -1,4 +1,4 @@
-import { Fragment, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { Spinner } from "react-bootstrap";
 import { Redirect } from "react-router";
 import { saveUsername, userExists } from "../services/SessionUtils";
@@ -9,6 +9,7 @@ import './login.css';
 function Login(props) {
     const [name, setName] = useState('');
     const [loading, setLoading] = useState(false);
+    useEffect(() => document.title = 'ورود',[]);
 
     function submitName(e) {
         e.preventDefault();

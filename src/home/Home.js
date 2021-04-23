@@ -139,6 +139,7 @@ function HomeBody(props) {
 
 
 function Home(props) {
+    useEffect(() => document.title = 'خانه',[]);
 
     return (
         <div className="wrapper home-div">
