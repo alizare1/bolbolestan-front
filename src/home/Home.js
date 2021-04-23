@@ -127,24 +127,12 @@ function GradeReport(props) {
 }
 
 function HomeBody(props) {
-    const [student, setStudent] = useState({'grades': {}});
-    const [loaded, setLoaded] = useState(false);
-    useEffect(() => {
-        getStudent(localStorage.getItem('username'))
-            .then(st => {
-                setStudent(st);
-                setLoaded(true);
-            });
-    }, []);
-
     return (
         <div className="container-fluid">
-            {!loaded ? <Spinner animation="grow" variant="info" className='m-5 p-3'/> :
             <div className="row">
-                <Profile student={student} />
-                <GradeReport grades={student.grades}/>
+                <Profile student={props.student} />
+                <GradeReport grades={props.student.grades}/>
             </div>
-            }
         </div>
     )
 }
@@ -155,7 +143,7 @@ function Home(props) {
     return (
         <div className="wrapper">
             <MyCarousel />
-            <HomeBody />
+            <HomeBody student={props.student} />
         </div>
     )
 }

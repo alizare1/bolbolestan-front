@@ -13,7 +13,7 @@ function LogoutDialog(props) {
     const logout = () => {
         localStorage.removeItem('username');
         handleClose();
-        window.location.reload();
+        props.setLoggedIn(false);
     }
 
     return (

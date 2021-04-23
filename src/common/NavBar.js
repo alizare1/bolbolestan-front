@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Route, Switch } from 'react-router';
-import { BrowserRouter, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { userExists } from '../services/SessionUtils';
 import LogoutDialog from './LogoutDialog';
 import logo from './logo.png';
@@ -10,8 +10,8 @@ function HomeLinks(props) {
     return (
         <div>
             <img src={logo} alt="logo" />
-            <a href="courses">انتخاب واحد</a>
-            <a href="schedule">برنامه هفتگی</a>
+            <Link to="/courses">انتخاب واحد</Link>
+            <Link to="/schedule">برنامه هفتگی</Link>
         </div>
     )
 } 
@@ -20,8 +20,8 @@ function ScheduleLinks(props) {
     return (
         <div>
             <img src={logo} alt="logo" />
-            <a href="home">خانه</a>
-            <a href="courses">انتخاب واحد</a>
+            <Link to="/home">خانه</Link>
+            <Link to="/courses">انتخاب واحد</Link>
         </div>
     )
 }
@@ -30,8 +30,8 @@ function CoursesLinks(props) {
     return (
         <div>
             <img src={logo} alt="logo" />
-            <a href="home">خانه</a>
-            <a href="schedule">برنامه هفتگی</a>
+            <Link to="/home">خانه</Link>
+            <Link to="/schedule">برنامه هفتگی</Link>
         </div>
     )
 }
@@ -40,16 +40,14 @@ function NavBar(props) {
     return (
         <header>
             <div className="navbar navbar-expand fixed-navbar">
-                <BrowserRouter>
                     <Switch>
                         <Route path='/home/' component={HomeLinks} />
                         <Route path='/schedule/' component={ScheduleLinks} />
                         <Route path='/courses/' component={CoursesLinks} />
                         <Route component={HomeLinks} />
                     </Switch>
-                </BrowserRouter>
                 <div>
-                    { userExists() && <LogoutDialog />}
+                    { props.loggedIn && <LogoutDialog setLoggedIn={props.setLoggedIn} />}
                 </div>
             </div>
         </header>

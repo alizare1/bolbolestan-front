@@ -58,25 +58,29 @@ export function TestHook() {
 }
 
 function App() {
+  const [student, setStudent] = useState({});
+  const [loggedIn, setLoggedIn] = useState(false);
+
+  useEffect(() => {
+    if (userExists())
+      setLoggedIn(true);
+  }, []);
 
   const routes = (
-    <BrowserRouter>
       <Switch>
-        <Route path='/' children={<TestHook />} exact />
-        <Route path='/login/' children={<Login />} />
-        <Route path='/home/' children={<Home />} />
-        <Route path='/schedule/' children={<TestHook />} />
-        <Route path='/courses/' children={<TestHook />} />
-        <Route children={<TestHook />} /> {/* fallback */}
+        <Route path='/' children={<Home student={student} />} exact />
+        <Route path='/home' children={<Home student={student} />} />
+        <Route path='/schedule' children={<TestHook />} />
+        <Route path='/courses' children={<TestHook />} />
+        <Route children={<Home student={student} />} /> {/* fallback */}
       </Switch>
-    </BrowserRouter>
   )
 
   return (
     <div className="App">
-      <NavBar />
+      <NavBar loggedIn={loggedIn} setLoggedIn={setLoggedIn} />
       <div className="wrapper">
-        {userExists() ? routes : <Login />}
+        {loggedIn ? routes : <Login setLoggedIn={setLoggedIn} setStudent={setStudent} />}
       </div>
       <Footer />
     </div>
