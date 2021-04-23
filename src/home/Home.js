@@ -110,7 +110,7 @@ function GradeReport(props) {
                     <label> كارنامه-ترم {key}</label>
                 </div>
                 <div className = "table-container">
-                    <table>
+                    <table className="home-table">
                         {value.map((val,i) => <GradeRow num={i+1} grade={val} />)}
                     </table>
                     <label class="box avg-box">معدل: {calculateGPA(value)}</label>
@@ -141,7 +141,7 @@ function HomeBody(props) {
 function Home(props) {
 
     return (
-        <div className="wrapper">
+        <div className="wrapper home-div">
             <MyCarousel />
             <HomeBody student={props.student} />
         </div>

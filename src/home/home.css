@@ -1,40 +1,40 @@
 body{
     background-color: #FBFBFB;
 }
-table{
+.home-table{
     border-collapse:separate;
     border-spacing:0 15px;
 }
-table tr td:first-child{
+.home-table tr td:first-child{
     border-top-right-radius: 5px;
     border-bottom-right-radius: 5px;
     color: #1FA5FF;
 }
-table tr td:last-child{
+.home-table tr td:last-child{
     border-top-left-radius: 5px;
     border-bottom-left-radius: 5px;
 }
-tr{
+.home-div tr{
     margin : 10px;
 }
-td{
+.home-div td{
     text-align: center;
     border: 1px solid #1FA5FF;
     color: #727272;
     padding:5px;
 }
-ul{
+.home-div ul{
     color:#0087E0;
     list-style-type: none;
     text-align: center;
 }
-ul span{
+.home-div ul span{
     color: #626262;
 }
-ul li{
+.home-div ul li{
     margin:1em;
 }
-ul img{
+.home-div ul img{
     border-radius: 50%;
     border: 3px solid #1FA5FF;
     height: 110px;
