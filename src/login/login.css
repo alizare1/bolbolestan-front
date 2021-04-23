@@ -2,7 +2,7 @@ body {
     background-color: #96d1f5;
 }
 
-.main {
+.form-container {
     background-color: #FFFFFF;
     width: 400px;
     margin: 7em auto;
@@ -11,7 +11,7 @@ body {
     position: relative;
 }
 
-.form-container{
+.sign{
     padding: 30px 0;
     color: #FFFFFF;
     background-color: #0087E0;
