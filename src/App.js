@@ -9,7 +9,7 @@ import './common/font/flaticon.css'
 import './common/reset.css';
 import './common/style.css';
 import Login from './login/Login';
-import { userExists } from './services/SessionUtils';
+import { getUsername, userExists } from './services/SessionUtils';
 import { addCourse, getStudent, getStudentPlan, resetSelection } from './services/Students';
 import { getCourse, getCourses } from './services/Courses';
 import Home from './home/Home';
@@ -62,8 +62,16 @@ function App() {
   const [loggedIn, setLoggedIn] = useState(false);
 
   useEffect(() => {
-    if (userExists())
-      setLoggedIn(true);
+    if (userExists()) {
+      getStudent(getUsername())
+      .then(st => {
+        setStudent(st);
+        setLoggedIn(true);
+      })
+      .catch(e => {
+        setLoggedIn(false);
+      })
+    }
   }, []);
 
   const routes = (
