@@ -70,12 +70,12 @@ body{
 }
 
 .passed-grade {
-    color: #5CB85C;
+    color: #5CB85C !important;
     font-weight: bold;
 }
 
 .failed-grade {
-    color: #FF595E;
+    color: #FF595E !important;
     font-weight: bold;
 }
 
