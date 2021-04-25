@@ -14,7 +14,7 @@ import { getCourse, getCourses } from './services/Courses';
 import Home from './home/Home';
 import Schedule from './schedule/Schedule';
 import Courses from "./courses/Courses";
-import { ToastContainer } from 'react-toastify';
+import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Spinner } from 'react-bootstrap';
 
@@ -79,8 +79,10 @@ function App() {
         setLoading(false);
       })
       .catch(e => {
-        setLoading(false);
+        if (!e.response)
+          toast.error('مشکل در ارتباط با سرور');
         setLoggedIn(false);
+        setLoading(false);
       })
     }
   }, []);
