@@ -38,7 +38,7 @@ input:focus{
 
 ::placeholder{
     color : #0b265b;
-    opacity: 1;
+    opacity: 60%;
 }
 
 .form {
