@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useEffect } from 'react';
-import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import NavBar from './common/NavBar';
 import Footer from './common/Footer';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -16,6 +16,7 @@ import Schedule from './schedule/Schedule';
 import Courses from "./courses/Courses";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { Spinner } from 'react-bootstrap';
 
 
 export function TestHook() {
@@ -64,16 +65,21 @@ function App() {
   const [student, setStudent] = useState({});
   const [term, setTerm] = useState(0);
   const [loggedIn, setLoggedIn] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     if (userExists()) {
+      setLoggedIn(true);
+      setLoading(true);
       getStudent(getUsername())
       .then(st => {
         setStudent(st);
         setTerm(Object.keys(st.grades).length+1)
         setLoggedIn(true);
+        setLoading(false);
       })
       .catch(e => {
+        setLoading(false);
         setLoggedIn(false);
       })
     }
@@ -93,7 +99,9 @@ function App() {
     <div className="App">
       <NavBar loggedIn={loggedIn} setLoggedIn={setLoggedIn} />
       <div className="wrapper">
-        {loggedIn ? routes : <Login setLoggedIn={setLoggedIn} setStudent={setStudent} />}
+        {loading ? <div className='text-center'> <Spinner animation="border" variant='info' /> </div> :
+        loggedIn ? routes : <Login setLoggedIn={setLoggedIn} setStudent={setStudent} />
+        }
       </div>
       <ToastContainer position='bottom-right' rtl={true} />
       <Footer />
