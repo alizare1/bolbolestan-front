@@ -32,6 +32,7 @@ function Login(props) {
                 console.log('Login: server down?');
                 toast.error('مشکل در ارتباط با سرور');
             }
+            setLoading(false);
         });
     }
 
