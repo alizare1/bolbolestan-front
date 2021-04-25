@@ -153,11 +153,11 @@
     border: 2px solid #5CB85C;
     color: #5CB85C;
 }
-.courses-div .non-finalized-box{
+.courses-div .notFinalized-box{
     border: 2px solid #0087E0;
     color: #0087E0;
 }
-.courses-div .waiting-box{
+.courses-div .queue-box{
     border: 2px solid #707070;
     color: #707070;
 }
