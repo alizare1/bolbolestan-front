@@ -22,14 +22,14 @@ button{
     z-index: 10000;
 }
 
-.my-nav {
+.fixed-navbar {
     overflow: hidden;
     position: fixed;
     top: 0;
     width: 100%;
     z-index: 10000; /*push navbar to front*/
 }
-.my-nav{
+.navbar{
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -37,25 +37,25 @@ button{
     height: var(--navbar-height);
     background-color: #FEFEFE;
 }
-.my-nav div{
+.navbar div{
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-right: 5%;
 }
-.my-nav div:first-child a{
+.navbar div:first-child a{
     color: #1FA5FF;
     margin : 1em;
 }
-.my-nav img{
+.navbar img{
     object-fit: scale-down;
     height: 50px;
 }
-.my-nav div:last-child a{
+.navbar div:last-child a{
     color: #FF8084;
     margin-left:2em;
 }
-.my-nav div:last-child i{
+.navbar div:last-child i{
     color: #FF8084;
     margin-left:2em;
 }
@@ -114,9 +114,8 @@ table{
     display: flex;
     justify-content: space-between;
     align-items: center;
-    /* position: absolute; */
+    position: absolute;
     width: 100%;
-    padding: 0 !important;
 }
 
 .footer div{
