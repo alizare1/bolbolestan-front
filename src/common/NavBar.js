@@ -1,8 +1,6 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import { Route, Switch } from 'react-router';
 import { Link } from 'react-router-dom';
-import { userExists } from '../services/SessionUtils';
 import LogoutDialog from './LogoutDialog';
 import logo from './logo.png';
 
@@ -39,7 +37,7 @@ function CoursesLinks(props) {
 function NavBar(props) {
     return (
         <header>
-            <div className="navbar navbar-expand fixed-navbar">
+            <div className="navbar navbar-expand fixed-navbar my-nav">
                     <Switch>
                         <Route path='/home/' component={HomeLinks} />
                         <Route path='/schedule/' component={ScheduleLinks} />
