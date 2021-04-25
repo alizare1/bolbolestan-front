@@ -13,6 +13,7 @@ import { addCourse, getStudent, getStudentPlan, resetSelection } from './service
 import { getCourse, getCourses } from './services/Courses';
 import Home from './home/Home';
 import Schedule from './schedule/Schedule';
+import Courses from "./courses/courses";
 
 
 export function TestHook() {
@@ -81,7 +82,7 @@ function App() {
         <Route path='/' children={<Home student={student} />} exact />
         <Route path='/home' children={<Home student={student} />} />
         <Route path='/schedule' children={<Schedule term={term} />} />
-        <Route path='/courses' children={<TestHook />} />
+        <Route path='/courses' children={<Courses />} />
         <Route children={<Home student={student} />} /> {/* fallback */}
       </Switch>
   )
