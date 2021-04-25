@@ -1,6 +1,7 @@
 import { Fragment, useEffect, useState } from "react";
 import { Spinner } from "react-bootstrap";
 import { Redirect } from "react-router";
+import { toast } from "react-toastify";
 import { saveUsername, userExists } from "../services/SessionUtils";
 import { getStudent } from "../services/Students";
 import './login.css';
@@ -13,6 +14,8 @@ function Login(props) {
 
     function submitName(e) {
         e.preventDefault();
+        if (!name)
+            return;
         setLoading(true);
         getStudent(name)
         .then(st => {
@@ -21,10 +24,14 @@ function Login(props) {
             props.setLoggedIn(true);
             console.log(name);
         }).catch(error => {
-            if (error.response)
+            if (error.response) {
                 console.log(error.response.data);
-            else 
+                toast.error(error.response.data.error);
+            }
+            else {
                 console.log('Login: server down?');
+                toast.error('مشکل در ارتباط با سرور');
+            }
         });
     }
 
@@ -34,7 +41,7 @@ function Login(props) {
                 {loading && <Spinner animation="grow" variant="info" className='m-5 p-3'/> }
                 <div className="sign">ورود</div>
                 <form className="form">
-                    <input onChange={e => setName(e.target.value)} className="form-input" type="text"  placeholder="ایمیل" />
+                    <input required={true} onChange={e => setName(e.target.value)} className="form-input" type="text"  placeholder="ایمیل" />
                     <input className="form-input" type="password"  placeholder="رمز عبور" />
                     <button onClick={e => submitName(e)} type="submit" className="submit-btn" >ورود</button>
                 </form>

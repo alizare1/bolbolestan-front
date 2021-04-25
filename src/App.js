@@ -14,6 +14,8 @@ import { getCourse, getCourses } from './services/Courses';
 import Home from './home/Home';
 import Schedule from './schedule/Schedule';
 import Courses from "./courses/Courses";
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 export function TestHook() {
@@ -93,6 +95,7 @@ function App() {
       <div className="wrapper">
         {loggedIn ? routes : <Login setLoggedIn={setLoggedIn} setStudent={setStudent} />}
       </div>
+      <ToastContainer position='bottom-right' rtl={true} />
       <Footer />
     </div>
   );
