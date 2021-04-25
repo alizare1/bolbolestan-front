@@ -35,16 +35,24 @@ function Login(props) {
         });
     }
 
+    const btnStyle = {
+        'width': '5em',
+        'height': '3.5em'
+    };
+
     return (
         <Fragment>
             <div className="form-container">
-                {loading && <Spinner animation="grow" variant="info" className='m-5 p-3'/> }
+                <Fragment>
                 <div className="sign">ورود</div>
                 <form className="form">
                     <input required={true} onChange={e => setName(e.target.value)} className="form-input" type="text"  placeholder="ایمیل" />
                     <input className="form-input" type="password"  placeholder="رمز عبور" />
-                    <button onClick={e => submitName(e)} type="submit" className="submit-btn" >ورود</button>
+                    <button style={btnStyle} onClick={e => submitName(e)} type="submit" className="submit-btn" >
+                        {loading ? <Spinner as='span' size='sm-1' role='status' animation="border" /> : 'ورود'}
+                    </button>
                 </form>
+                </Fragment>
             </div>
         </Fragment>
     )
