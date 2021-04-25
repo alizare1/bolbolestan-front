@@ -4,7 +4,8 @@ import '../common/reset.css'
 import { Fragment, useEffect, useState } from 'react';
 import { Spinner } from 'react-bootstrap';
 import {getCourses} from "../services/Courses";
-import {addCourse, getStudentSchedule} from '../services/Students';
+import {addCourse, finalizeSelection, getStudentSchedule, removeFromSchedule, resetSelection} from '../services/Students';
+import { getUsername } from '../services/SessionUtils';
 import {toast} from "react-toastify";
 
 function SearchForm({submitHandler,handleFilter,type}){
@@ -38,7 +39,7 @@ function SearchForm({submitHandler,handleFilter,type}){
 function Courses(props) {
 
     const [courses, setCourses] = useState([]);
-    const [schedule,setSchedule] = useState([]);
+    const [schedule,setSchedule] = useState({'courses': []});
     const [filter,setFilter] = useState("");
     const [type,setType] = useState("");
     const [loaded, setLoaded] = useState(false);
@@ -47,20 +48,36 @@ function Courses(props) {
 
     useEffect(() => {
         document.title = 'انتخاب واحد';
-        getCourses(null,null).then(c => {
-            console.log(c);
-            setCourses(c);
-            setLoaded(true);
-        }).then().catch(error => {
-            if (error.response)
-                console.log(error.response.data);
-            else
-                console.log(error);
-        })},[]);
+        getCourses(null,null)
+            .then(c => {
+                console.log(c);
+                setCourses(c);
+                setLoaded(true);
+            })
+            .catch(error => {
+                if (error.response)
+                    console.log(error.response.data);
+                else
+                    console.log(error);
+            })
+
+        getStudentSchedule(localStorage.getItem('username'))
+            .then(sched => {
+                console.log(sched);
+                setSchedule(sched);
+            }).catch(error => {
+                if (error.response) {
+                    console.log(error.response.data);
+                    toast.error(error.response.data);
+                }
+                else
+                    toast.error('مشکل در ارتباط با سرور');
+            });
+    },[]);
 
     return(
         <div className="main courses-div">
-            <SelectedCourses schedule={schedule}/>
+            <SelectedCourses schedule={schedule.courses} unitCount={schedule.unitCount} setSchedule={setSchedule}/>
             <SearchForm submitHandler={handleSubmit} handleFilter={setFilter} type={type}/>
             <Offerings submitHandler={handleSubmit} courses={courses} handleType={setType}
                         filter={filter} scheduleHandler={setSchedule}/>
@@ -100,31 +117,119 @@ function Offerings({submitHandler,courses,handleType,filter,scheduleHandler}) {
     );
 }
 
-function SelectedCoursesTR(props){
+function SelectedCoursesTR({course, setSchedule}){
+
+    const [removeLoading, setRemoveLoading] = useState(false);
+
     const status = {
         'notFinalized': 'ثبت نهایی نشده',
         'finalized': 'ثبت شده',
         'queue': 'در انتظار'
     };
+
+    const removeBtn = e => {
+        e.preventDefault();
+        setRemoveLoading(true);
+        removeFromSchedule(getUsername(), course.code, course.classCode)
+        .then(sched => {
+            setRemoveLoading(false);
+            setSchedule(sched);
+        })
+        .catch(e => {
+            setRemoveLoading(false);
+            console.log(e);
+            if (e.response)
+                toast.error(e.response.data.error);
+            else
+                toast.error('مشکل در ارتباط با سرور');
+        })
+    }
+
+    const trashStyle = {'width': '2.5em', 'height': '2.5em'}
+
     return (
         <tr>
             <td>
                 <form action="" method="DELETE">
                     <input type="hidden" name="action" value="remove" />
-                    <button type="submit"><i className="flaticon-trash-bin"></i></button>
+                    <button style={trashStyle} onClick={removeBtn} type="submit">
+                        { removeLoading ? <Spinner as='span' size='sm-1' role='status' variant='danger' animation="border" /> : <i className="flaticon-trash-bin"></i> }
+                    </button>
                 </form>
 
             </td>
-            <td><span className={`${props.status}-box box`}>{status[props.status]}</span></td>
-            <td>{createClassCode(props.code,props.classCode)}</td>
-            <td>{props.name}</td>
-            <td>{props.instructor}</td>
-            <td>{props.units}</td>
+            <td><span className={`${course.status}-box box`}>{status[course.status]}</span></td>
+            <td>{createClassCode(course.code,course.classCode)}</td>
+            <td>{course.name}</td>
+            <td>{course.instructor}</td>
+            <td>{course.units}</td>
         </tr>
     );
 }
 
-function SelectedCourses({schedule}){
+
+function SelectionInfo({unitCount, setSchedule}) {
+
+    const [submitLoading, setSubmitLoading] = useState(false);
+    const [resetLoading, setResetLoading] = useState(false);
+
+    const finalize = (e) => {
+        e.preventDefault();
+        setSubmitLoading(true);
+        finalizeSelection(getUsername())
+        .then(sched => {
+            setSchedule(sched);
+            setSubmitLoading(false);
+            toast.success('ثبت شد!');
+        }).catch(e => {
+            setSubmitLoading(false);
+            console.log(e);
+            if (e.response)
+                toast.error(e.response.data.error);
+            else
+                toast.error('مشکل در ارتباط با سرور');
+        });
+      };
+
+
+    const reset = e => {
+        e.preventDefault();
+        setResetLoading(true);
+        resetSelection(getUsername())
+        .then(sched => {
+            setSchedule(sched);
+            setResetLoading(false);
+            toast.success('بازگردانی شد!');
+        }).catch(e => {
+            setResetLoading(false);
+            console.log(e);
+            if (e.response)
+                toast.error(e.response.data.error);
+            else
+                toast.error('مشکل در ارتباط با سرور');
+        });
+    }
+
+    const submitStyle = {'width': '7em', 'height': '3em'}
+    const labelStyle = {'float': 'right'}
+    return (
+        <div>
+            <form className="submit-form-container">
+                <label style={labelStyle}>تعداد واحد ثبت شده: {unitCount}</label>
+                <span>
+                    <button onClick={reset} className="refresh-btn" type="submit" name="action" value="reset">
+                        {resetLoading ? <Spinner as='span' size='sm' role='status' animation="border" /> : <i className="flaticon-refresh-arrow"></i>}
+                    </button>
+                    <button style={submitStyle} onClick={finalize} className="submit-btn" type="submit" name="action" value="submit">
+                        {submitLoading ? <Spinner as='p' size='sm-1' role='status' animation="border" /> : 'ثبت نهایی'}
+                    </button>
+                </span>
+            </form>
+        </div>
+    )
+}
+
+function SelectedCourses({schedule, unitCount, setSchedule}){
     const thead = (
         <thead>
             <tr>
@@ -147,10 +252,11 @@ function SelectedCourses({schedule}){
                     {thead}
                     <tbody>
                     {console.log(schedule)}
-                       {schedule.length > 0 ? schedule.map((course) => <SelectedCoursesTR {...course} />): console.log(schedule)}
+                       {schedule.length > 0 ? schedule.map((course) => <SelectedCoursesTR course={course} setSchedule={setSchedule} />): console.log(schedule)}
                     </tbody>
                 </table>
             </div>
+            <SelectionInfo unitCount={unitCount} setSchedule={setSchedule} />
         </>
     );
 }
@@ -164,10 +270,10 @@ function OfferingsTR({course,scheduleHandler}) {
     };
     return (
         <tr>
-            <td><Icon course={course} scheduleHandler={scheduleHandler}/></td>
+            <td><Icon course={course} setSchedule={scheduleHandler}/></td>
             <td>{createClassCode(course.code,course.classCode)}</td>
 
-            <td className={isFull(course.capacity,course.participantsCount)?`cap-full`:``}>
+            <td className={course.capacity <= course.participantsCount ? `cap-full` : ``}>
                 {`${course.capacity}/ ${course.participantsCount}`}
             </td>
             <td>
@@ -181,57 +287,42 @@ function OfferingsTR({course,scheduleHandler}) {
     );
 }
 
-function Icon({course,scheduleHandler}){
+function Icon({course,setSchedule}){
+    const [loading, setloading] = useState(false);
 
-    const getSelectedCourses = () => {
-          getStudentSchedule(localStorage.getItem('username'))
-            .then(sched => {
-                console.log(sched);
-                scheduleHandler(sched.courses);
-            }).catch(error => {
-            if (error.response)
-                console.log(error.response.data);
-            else
-                console.log(error);
-        });
-    }
-
-    const addToSched = (code,classCode) =>{
-        addCourse(localStorage.getItem('username'),code,classCode).then(resp => {
-             console.log(resp);
-             getSelectedCourses();
-        }).catch(error => {
-             if (error.response) {
-                console.log(error.response.data);
-                toast.error(error.response.data.error);
-             } else
-                toast.error('مشکل در ارتباط با سرور');
+    const addToSched = e => {
+        e.preventDefault();
+        setloading(true);
+        addCourse(getUsername(), course.code, course.classCode)
+        .then(sched => {
+            setSchedule(sched);
+            toast.success('اضافه شد!')
+            setloading(false);
+        })
+        .catch(error => {
+            setloading(false);
+            if (error.response) {
+               console.log(error.response.data);
+               toast.error(error.response.data.error);
+            } else
+               toast.error('مشکل در ارتباط با سرور');
           });
     }
 
-    if(isFull(course.capacity,course.participantsCount)){
-        return(
-            <button type='button' className="icon-circular-clock" onClick=
-                {() => addToSched(course.code,course.classCode)}>
-                <i className="flaticon-clock-circular-outline"></i>
-            </button>
-        );
-    }
-    else{
-        return (
-            <button type='button' className="icon-add" onClick={() => addToSched(course.code,course.classCode)}>
-                <i className="flaticon-add"></i>
-            </button>
-        );
-    }
+    const buttonClass = course.capacity <= course.participantsCount ? 'icon-circular-clock' : 'icon-add';
+    const iconClass = course.capacity <= course.participantsCount ? 'flaticon-clock-circular-outline' : 'flaticon-add';
+    const spinStyle = {'width': '1.25em', 'height': '1.25em'};
+    const buttonStyle = {'width': '2.5em', 'height': '2.5em'};
+
+    return (
+        <button style={buttonStyle} type='button' className={buttonClass + ' text-center'} onClick={addToSched}>
+            {loading ? <Spinner style={spinStyle} as='span' size='sm' role='status' animation="border" /> : <i className={iconClass}></i>}
+        </button>
+    )
 }
 
 const createClassCode = (code,classCode) => {
     return classCode < 10 ? code + '-۰'+ classCode : code + '-' + classCode;
-}
-
-const isFull = (capacity,participantsCount) => {
-    return (capacity <= participantsCount);
 }
 
 function BtnContainer({submitHandler,handleType,filter}){
