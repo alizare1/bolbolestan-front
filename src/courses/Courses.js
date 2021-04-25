@@ -63,7 +63,7 @@ function Courses(props) {
         })},[]);
 
     return(
-        <div className="main">
+        <div className="main courses-div">
             <SelectedCourses />
             <SearchForm submitHandler = {handleSubmit} handleFilter={setFilter} type={type}/>
             <Offerings  submitHandler = {handleSubmit} courses= {courses} handleType={setType} filter={filter}/>

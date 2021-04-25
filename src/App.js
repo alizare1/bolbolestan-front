@@ -13,7 +13,7 @@ import { addCourse, getStudent, getStudentPlan, resetSelection } from './service
 import { getCourse, getCourses } from './services/Courses';
 import Home from './home/Home';
 import Schedule from './schedule/Schedule';
-import Courses from "./courses/courses";
+import Courses from "./courses/Courses";
 
 
 export function TestHook() {

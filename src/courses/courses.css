@@ -1,48 +1,48 @@
 
-th{
+.courses-div th{
     padding: 10px;
     text-align: center;
     color : #1A4C89;
     font-weight: bold;
 }
-td{
+.courses-div td{
      text-align: center;
      border: 2px solid #707070;
      color: #727272;;
      padding: 0.5em 0;
  }
 
-.selected-courses i{
+.courses-div .selected-courses i{
     color : #FF595E;
     background-color: #ffffff;
     font-size: 1.8em;
     font-family: Arial !important;
 }
-.selected-courses th{
+.courses-div .selected-courses th{
     border: 2px solid #707070;
 }
-.selected-courses button{
+.courses-div .selected-courses button{
     background-color: #ffffff;
     border : none;
 }
 
-.courses{
+.courses-div .courses{
     border: 2px solid #0087E0;
 }
-.courses th{
+.courses-div .courses th{
     border-bottom: 2px solid #0087E0;
 }
-.courses tr:last-child td{
+.courses-div .courses tr:last-child td{
     border-bottom: none;
 }
-.courses tr td:last-child{
+.courses-div .courses tr td:last-child{
     border: none;
 }
-.courses tr td:first-child{
+.courses-div .courses tr td:first-child{
     border-right: none;
 }
 
-.submit-form-container{
+.courses-div .submit-form-container{
     display: flex;
     padding: 10px 30px;
     align-items: center;
@@ -51,28 +51,28 @@ td{
     border-top:none;
     border-radius: 0 0 5px 5px;
 }
-.submit-form-container label{
+.courses-div .submit-form-container label{
     color : #1A4C89;
 }
-.submit-form-container span{
+.courses-div .submit-form-container span{
     display: flex;
     justify-content: space-between;
 }
 
-.refresh-btn{
+.courses-div .refresh-btn{
     background-color: #AAAAAA;
     color : #ffffff;
     border: none;
     margin-left: 3px;
 }
 
-.form-container{
+.courses-div .form-container{
     display: flex;
     justify-content: space-around;
     align-items: center;
 }
 
-.search-input{
+.courses-div .search-input{
     text-align: center;
     background-color: #f2f2f2;
     height: 2.1em;
@@ -80,7 +80,7 @@ td{
     border: 2px solid #A9A9A9;
 }
 
-#search-form{
+.courses-div #search-form{
     border-radius: 5px;
     border: 2px solid #9B9B9B;
     width: 40%;
@@ -92,13 +92,13 @@ td{
     margin-bottom: 1em;
 }
 
-.submit-button{
+.courses-div .submit-button{
     background-color: #06D6A0 ;
     color: #FFFFFF;
     border:2px solid #06D6A0;
 }
 
-.btn-container{
+.courses-div .btn-container{
     display: flex;
     align-content: center ;
     border-top-left-radius: 5px;
@@ -109,7 +109,7 @@ td{
     justify-content: space-around;
     flex-wrap: wrap;
 }
-.filter-btn{
+.courses-div .filter-btn{
     color: #707070;
     border: 2px solid #9B9B9B;
     background-color: #FFFFFF;
@@ -117,68 +117,68 @@ td{
     font-weight: bold;
 }
 
-.icon-add{
+.courses-div .icon-add{
     color: #FFFFFF;
     background-color: #5CB85C;
     border: none;
     margin: 0.2em;
 }
-.icon-circular-clock{
+.courses-div .icon-circular-clock{
     color: #FFFFFF;
     background-color: #AAAAAA;
     border: none;
     margin: 0.2em;
 }
 
-.type-box{
+.courses-div .type-box{
     color: #FFFFFF;
 }
 
-.Takhasosi-box {
+.courses-div .Takhasosi-box {
     background-color: #1FA5FF;
 }
 
-.Asli-box {
+.courses-div .Asli-box {
     background-color: #06D6A0;
 }
 
-.Umumi-box {
+.courses-div .Umumi-box {
     background-color: #EDBB41;
 }
 
-.Paaye-box {
+.courses-div .Paaye-box {
     background-color: #FF595E;
 }
-.finalized-box{
+.courses-div .finalized-box{
     border: 2px solid #5CB85C;
     color: #5CB85C;
 }
-.non-finalized-box{
+.courses-div .non-finalized-box{
     border: 2px solid #0087E0;
     color: #0087E0;
 }
-.waiting-box{
+.courses-div .waiting-box{
     border: 2px solid #707070;
     color: #707070;
 }
 
-.filter-btn.active{
+.courses-div .filter-btn.active{
     background-color: #93D3FF !important;
     border-color: #93D3FF !important;
 }
 
-.courses > tbody > tr > td:nth-child(3),
-.courses > tbody > tr > td:nth-child(7),
-.selected-courses > tbody > tr > td:nth-child(6) {
+.courses-div .courses > tbody > tr > td:nth-child(3),
+.courses-div .courses > tbody > tr > td:nth-child(7),
+.courses-div .selected-courses > tbody > tr > td:nth-child(6) {
     font-weight: bold;
     color: #356197;
 }
 
-.cap-full {
+.courses-div .cap-full {
     color: #727272 !important;
 }
 
-.submit-form-container > label {
+.courses-div .submit-form-container > label {
     font-weight: bold;
 }
 
