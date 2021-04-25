@@ -5,8 +5,7 @@ import { Fragment, useEffect, useState } from 'react';
 import { Spinner } from 'react-bootstrap';
 import {getCourses} from "../services/Courses";
 import {addCourse, getStudentSchedule} from '../services/Students';
-
-import {getCourse} from "../services/Courses";
+import {toast} from "react-toastify";
 
 function SearchForm({submitHandler,handleFilter,type}){
 
@@ -21,11 +20,10 @@ function SearchForm({submitHandler,handleFilter,type}){
          getCourses(filter,type).then(c => {
              console.log(c);
             submitHandler(c);
-        })
-    }
-
-    return(
-        <div>
+         });
+      }
+      return(
+          <div>
             <form onSubmit={handleSubmit} id="search-form" className="form-container" action="" method="GET">
                 <input className="search-input" type="text" value={filter} onChange={handleChange} placeholder="نام درس" />
                 <button className="submit-button" type="submit" >
@@ -33,20 +31,19 @@ function SearchForm({submitHandler,handleFilter,type}){
                 </button>
 
             </form>
-        </div>
-    );
+          </div>
+      );
 }
+
 function Courses(props) {
 
     const [courses, setCourses] = useState([]);
+    const [schedule,setSchedule] = useState([]);
     const [filter,setFilter] = useState("");
     const [type,setType] = useState("");
-
     const [loaded, setLoaded] = useState(false);
 
-    const handleSubmit = (c) => {
-        setCourses(c);
-    }
+    const handleSubmit = (c) => setCourses(c);
 
     useEffect(() => {
         document.title = 'انتخاب واحد';
@@ -54,8 +51,7 @@ function Courses(props) {
             console.log(c);
             setCourses(c);
             setLoaded(true);
-
-        }).catch(error => {
+        }).then().catch(error => {
             if (error.response)
                 console.log(error.response.data);
             else
@@ -64,14 +60,15 @@ function Courses(props) {
 
     return(
         <div className="main courses-div">
-            <SelectedCourses />
-            <SearchForm submitHandler = {handleSubmit} handleFilter={setFilter} type={type}/>
-            <Offerings  submitHandler = {handleSubmit} courses= {courses} handleType={setType} filter={filter}/>
+            <SelectedCourses schedule={schedule}/>
+            <SearchForm submitHandler={handleSubmit} handleFilter={setFilter} type={type}/>
+            <Offerings submitHandler={handleSubmit} courses={courses} handleType={setType}
+                        filter={filter} scheduleHandler={setSchedule}/>
         </div>
     );
 }
 
-function Offerings({submitHandler,courses,handleType,filter}) {
+function Offerings({submitHandler,courses,handleType,filter,scheduleHandler}) {
     const thead = (
         <thead>
             <tr>
@@ -92,19 +89,23 @@ function Offerings({submitHandler,courses,handleType,filter}) {
             <div className="caption">
                 <label> دروس ارائه شده</label>
             </div>
-            <BtnContainer submitHandler={submitHandler} handleType={handleType} filter={filter}/>
+            <BtnContainer submitHandler={submitHandler} handleType={handleType} filter={filter} />
                 <table className="courses">
                     {thead}
                     <tbody>
-                        {courses.map((course) => <OfferingsTR {...course} /> )}
+                        {courses.map((course) => <OfferingsTR course={course} scheduleHandler={scheduleHandler}/>)}
                     </tbody>
                 </table>
         </div>
-
     );
 }
 
 function SelectedCoursesTR(props){
+    const status = {
+        'notFinalized': 'ثبت نهایی نشده',
+        'finalized': 'ثبت شده',
+        'queue': 'در انتظار'
+    };
     return (
         <tr>
             <td>
@@ -114,7 +115,7 @@ function SelectedCoursesTR(props){
                 </form>
 
             </td>
-            <td></td>
+            <td><span className={`${props.status}-box box`}>{status[props.status]}</span></td>
             <td>{createClassCode(props.code,props.classCode)}</td>
             <td>{props.name}</td>
             <td>{props.instructor}</td>
@@ -123,11 +124,7 @@ function SelectedCoursesTR(props){
     );
 }
 
-function SelectedCourses(props){
-
-    const selectedCourses = [{"code":"8101021","classCode":"1","name":"گرافیک کامپیوتری","instructor":"رضا ظروفی","units":3,
-        "type":"Takhasosi","classTime":{"days":["Saturday","Monday"],"time":"7:30-9:00"},
-        "examTime":{"start":"2021-06-17T08:30:00","end":"2021-06-17T11:30:00"},"capacity":0,"prerequisites":[],"participantsCount":0}];
+function SelectedCourses({schedule}){
     const thead = (
         <thead>
             <tr>
@@ -149,7 +146,8 @@ function SelectedCourses(props){
                 <table className="selected-courses">
                     {thead}
                     <tbody>
-                       {selectedCourses.map((course) => <SelectedCoursesTR {...course} />)}
+                    {console.log(schedule)}
+                       {schedule.length > 0 ? schedule.map((course) => <SelectedCoursesTR {...course} />): console.log(schedule)}
                     </tbody>
                 </table>
             </div>
@@ -157,7 +155,7 @@ function SelectedCourses(props){
     );
 }
 
-function OfferingsTR(props) {
+function OfferingsTR({course,scheduleHandler}) {
     const types = {
         'Takhasosi': 'تخصصی',
         'Asli': 'اصلی',
@@ -166,44 +164,68 @@ function OfferingsTR(props) {
     };
     return (
         <tr>
-            <td><Icon capacity={props.capacity} participantsCount={props.participantsCount} /></td>
-            <td>{createClassCode(props.code,props.classCode)}</td>
+            <td><Icon course={course} scheduleHandler={scheduleHandler}/></td>
+            <td>{createClassCode(course.code,course.classCode)}</td>
 
-            <td className={isFull(props.capacity,props.participantsCount)?`cap-full`:``}>
-                {`${props.capacity}/ ${props.participantsCount}`}
+            <td className={isFull(course.capacity,course.participantsCount)?`cap-full`:``}>
+                {`${course.capacity}/ ${course.participantsCount}`}
             </td>
             <td>
-                <span className={`type-box box ${props.type}-box`}>{types[props.type]}</span>
+                <span className={`type-box box ${course.type}-box`}>{types[course.type]}</span>
             </td>
-            <td>{props.name}</td>
-            <td>{props.instructor}</td>
-            <td>{props.units}</td>
+            <td>{course.name}</td>
+            <td>{course.instructor}</td>
+            <td>{course.units}</td>
             <td></td>
         </tr>
     );
 }
 
-function Icon({capacity,participantsCount}){
-   /* const handleClick = () =>{
-        addCourse()
-    }*/
-    if(isFull(capacity,participantsCount)) {
+function Icon({course,scheduleHandler}){
+
+    const getSelectedCourses = () => {
+          getStudentSchedule(localStorage.getItem('username'))
+            .then(sched => {
+                console.log(sched);
+                scheduleHandler(sched.courses);
+            }).catch(error => {
+            if (error.response)
+                console.log(error.response.data);
+            else
+                console.log(error);
+        });
+    }
+
+    const addToSched = (code,classCode) =>{
+        addCourse(localStorage.getItem('username'),code,classCode).then(resp => {
+             console.log(resp);
+             getSelectedCourses();
+        }).catch(error => {
+             if (error.response) {
+                console.log(error.response.data);
+                toast.error(error.response.data.error);
+             } else
+                toast.error('مشکل در ارتباط با سرور');
+          });
+    }
+
+    if(isFull(course.capacity,course.participantsCount)){
         return(
-                <button type='button' className="icon-circular-clock" /*onClick={handleClick}*/>
-                    <i className="flaticon-clock-circular-outline"></i>
-                </button>
+            <button type='button' className="icon-circular-clock" onClick=
+                {() => addToSched(course.code,course.classCode)}>
+                <i className="flaticon-clock-circular-outline"></i>
+            </button>
         );
     }
     else{
         return (
-            <form action="" method="POST">
-                <input type="hidden" name="action" value="add"/>
-                <button className="icon-add"><i className="flaticon-add "></i></button>
-            </form>
+            <button type='button' className="icon-add" onClick={() => addToSched(course.code,course.classCode)}>
+                <i className="flaticon-add"></i>
+            </button>
         );
     }
-
 }
+
 const createClassCode = (code,classCode) => {
     return classCode < 10 ? code + '-۰'+ classCode : code + '-' + classCode;
 }
@@ -222,7 +244,7 @@ function BtnContainer({submitHandler,handleType,filter}){
         handleType(id);
         getCourses(filter,id).then(c => {
             console.log(c);
-            submitHandler(c);
+            submitHandler(c); //setCourses
         })
     }
     return( <div className="btn-container">
@@ -254,18 +276,5 @@ function FilterBtn(props){
         {types[props.id]}</button>
     );
 }
-
-/*const d = () =>{
-    getStudentSchedule(localStorage.getItem('username'))
-        .then(sched => {
-        console.log(sched);
-
-    }).catch(error => {
-        if (error.response)
-            console.log(error.response.data);
-        else
-            console.log(error);
-    });
-}*/
 
 export default Courses;
