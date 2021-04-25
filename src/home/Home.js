@@ -4,6 +4,7 @@ import coverPhoto from '../common/cover_photo.jpg';
 import { getStudent } from '../services/Students';
 import { Fragment, useEffect, useState } from 'react';
 import { Spinner } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 
 
 function MyCarousel(props) {
@@ -25,12 +26,12 @@ function MyCarousel(props) {
 
             </div>
 
-            <a className="carousel-control-prev" href="#myCarousel" data-slide="prev">
+            <Link className="carousel-control-prev" to="#myCarousel" data-slide="prev">
                 <span className="carousel-control-prev-icon"></span>
-            </a>
-            <a className="carousel-control-next" href="#myCarousel" data-slide="next">
+            </Link>
+            <Link className="carousel-control-next" to="#myCarousel" data-slide="next">
                 <span className="carousel-control-next-icon"></span>
-            </a>
+            </Link>
         </div>
     )
 }

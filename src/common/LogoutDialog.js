@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Button, Modal } from 'react-bootstrap';
 import { Redirect } from 'react-router';
+import { Link } from 'react-router-dom';
 import { userExists } from '../services/SessionUtils';
 
 
@@ -18,7 +19,7 @@ function LogoutDialog(props) {
 
     return (
       <>
-        <a onClick={handleShow} href='#'>خروج<i className="flaticon-log-out"></i></a>
+        <Link onClick={handleShow} href='#'>خروج<i className="flaticon-log-out"></i></Link>
 
         <Modal show={show} onHide={handleClose}>
           <Modal.Header>
