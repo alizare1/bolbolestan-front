@@ -410,15 +410,15 @@ function Description({courses,prerequisites,classTime,examTime}){
         const  getTime = (time) => Number(time.slice(0,2)) + ":" + time.slice(3,5);
         return getTime(startTime) + "-" + getTime(endTime)+ "-" + Number(m) + "/" + Number(d);
     }
-
+    const TimeSpanStyle = {borderBottom:"1px solid #707070",marginBottom:"5px",paddingBottom:"5px"}
+    const titleStyle = {fontWeight:"700"};
     return(
         <div className="tooltip-text">
             <span>{classTime.time}</span>
-            <span >{classTimeDays(classTime.days)}</span>
-            <span>پیش نیازی ها
-            </span>
+            <span style={TimeSpanStyle}>{classTimeDays(classTime.days)}</span>
+            <span style={titleStyle}>پیش نیازی‌ها</span>
             <span>{findPrerequisitesNames(prerequisites)}</span>
-            <span>امتحان</span>
+            <span style={titleStyle}>امتحان</span>
             <span>{ExamTime(examTime.start,examTime.end)}</span>
         </div>
     );
