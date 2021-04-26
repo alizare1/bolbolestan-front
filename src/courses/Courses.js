@@ -8,25 +8,21 @@ import {addCourse, finalizeSelection, getStudentSchedule, removeFromSchedule, re
 import { getUsername } from '../services/SessionUtils';
 import {toast} from "react-toastify";
 
-function SearchForm({submitHandler,handleFilter,type}){
+function SearchForm({setFilter, filter}){
 
-      const [filter,setFilter] = useState("");
+      const [tmpFilter,setTmpFilter] = useState("");
 
       const handleChange = (event) => {
-          handleFilter(event.target.value);
-          setFilter(event.target.value);
+        setTmpFilter(event.target.value);
       }
       const handleSubmit = (event) =>{
          event.preventDefault();
-         getCourses(filter,type).then(c => {
-             console.log(c);
-            submitHandler(c);
-         });
+         setFilter(tmpFilter);
       }
       return(
           <div>
             <form onSubmit={handleSubmit} id="search-form" className="form-container" action="" method="GET">
-                <input className="search-input" type="text" value={filter} onChange={handleChange} placeholder="نام درس" />
+                <input className="search-input" type="text" value={tmpFilter} onChange={handleChange} placeholder="نام درس" />
                 <button className="submit-button" type="submit" >
                     جستجو <i className="flaticon-loupe submit-button"></i>
                 </button>
@@ -48,9 +44,8 @@ function Courses(props) {
 
     useEffect(() => {
         document.title = 'انتخاب واحد';
-        getCourses(null,null)
+        getCourses()
             .then(c => {
-                console.log(c);
                 setCourses(c);
                 setLoaded(true);
             })
@@ -59,11 +54,10 @@ function Courses(props) {
                     console.log(error.response.data);
                 else
                     console.log(error);
-            })
+            });
 
         getStudentSchedule(localStorage.getItem('username'))
             .then(sched => {
-                console.log(sched);
                 setSchedule(sched);
             }).catch(error => {
                 if (error.response) {
@@ -75,17 +69,33 @@ function Courses(props) {
             });
     },[]);
 
+    useEffect(() => {
+        const interval = setInterval(() => {
+            getCourses()
+            .then(c => {
+                setCourses(c);
+            })
+            .catch(error => {
+                if (error.response)
+                    console.log(error.response.data);
+                else
+                    console.log(error);
+            });
+        }, 5000);
+        return () => clearInterval(interval);
+      }, []);
+
     return(
         <div className="main courses-div">
             <SelectedCourses schedule={schedule.courses} unitCount={schedule.unitCount} setSchedule={setSchedule}/>
-            <SearchForm submitHandler={handleSubmit} handleFilter={setFilter} type={type}/>
-            <Offerings submitHandler={handleSubmit} courses={courses} handleType={setType}
+            <SearchForm setFilter={setFilter} filter={filter} />
+            <Offerings submitHandler={handleSubmit} courses={courses} type={type} setType={setType}
                         filter={filter} scheduleHandler={setSchedule}/>
         </div>
     );
 }
 
-function Offerings({submitHandler,courses,handleType,filter,scheduleHandler}) {
+function Offerings({submitHandler,courses,type, setType,filter,scheduleHandler}) {
     const thead = (
         <thead>
             <tr>
@@ -101,16 +111,25 @@ function Offerings({submitHandler,courses,handleType,filter,scheduleHandler}) {
         </thead>
     );
 
+    const filterCourses = () => {
+        let results = courses;
+        if (filter)
+            results = courses.filter(c => c.name.includes(filter));
+        if (type)
+            results = results.filter(c => c.type === type);
+        return results;
+    }
+
     return(
         <div>
             <div className="caption">
                 <label> دروس ارائه شده</label>
             </div>
-            <BtnContainer submitHandler={submitHandler} handleType={handleType} filter={filter} />
+            <BtnContainer setType={setType} />
                 <table className="courses">
                     {thead}
                     <tbody>
-                        {courses.map((course) => <OfferingsTR course={course} scheduleHandler={scheduleHandler}/>)}
+                        {filterCourses().map((course) => <OfferingsTR course={course} scheduleHandler={scheduleHandler}/>)}
                     </tbody>
                 </table>
         </div>
@@ -251,8 +270,7 @@ function SelectedCourses({schedule, unitCount, setSchedule}){
                 <table className="selected-courses">
                     {thead}
                     <tbody>
-                    {console.log(schedule)}
-                       {schedule.length > 0 ? schedule.map((course) => <SelectedCoursesTR course={course} setSchedule={setSchedule} />): console.log(schedule)}
+                       {schedule.length > 0 && schedule.map((course) => <SelectedCoursesTR course={course} setSchedule={setSchedule} />)}
                     </tbody>
                 </table>
             </div>
@@ -325,18 +343,13 @@ const createClassCode = (code,classCode) => {
     return classCode < 10 ? code + '-۰'+ classCode : code + '-' + classCode;
 }
 
-function BtnContainer({submitHandler,handleType,filter}){
+function BtnContainer({setType}){
 
     const [activeBtn,setActiveBtn] = useState('');
 
     const handleClick = (id) =>{
-       // setActiveBtn(event.target.id);
+        setType(id);
         setActiveBtn(id);
-        handleType(id);
-        getCourses(filter,id).then(c => {
-            console.log(c);
-            submitHandler(c); //setCourses
-        })
     }
     return( <div className="btn-container">
               <FilterBtn id="" isActive={activeBtn === ""} onClick={handleClick}/>
@@ -357,10 +370,9 @@ function FilterBtn(props){
         'Umumi': 'عمومی',
         'Paaye': 'پایه'
     };
-    const handleClick = () => {
-        console.log(props.id);
+    const handleClick = (e) => {
         props.onClick(props.id)
-        // event.preventDefault();
+        e.preventDefault();
    }
     return(
         <button type='button' className={`filter-btn ${props.isActive ? "active":""}`} onClick={handleClick}>
