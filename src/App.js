@@ -13,7 +13,8 @@ import { addCourse, getStudent, getStudentPlan, resetSelection } from './service
 import { getCourse, getCourses } from './services/Courses';
 import Home from './home/Home';
 import Schedule from './schedule/Schedule';
-import Courses from "./courses/Courses";
+import Courses from './courses/Courses';
+import SignUp from './signUp/SignUp';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Spinner } from 'react-bootstrap';
@@ -93,6 +94,7 @@ function App() {
         <Route path='/home' children={<Home student={student} />} />
         <Route path='/schedule' children={<Schedule term={term} />} />
         <Route path='/courses' children={<Courses />} />
+        <Route path='/signup' children={<SignUp/>} />
         <Route children={<Home student={student} />} /> {/* fallback */}
       </Switch>
   )
