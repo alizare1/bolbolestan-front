@@ -3,23 +3,23 @@ import axios from "axios";
 
 
 export async function getStudent(sid) {
-    const resp = await axios.get('http://localhost:8080/students/' + sid);
+    const resp = await axios.get('http://localhost:8080/api/students/' + sid);
     return resp.data;
 }
 
 export async function getStudentPlan(sid) {
-    const resp = await axios.get(`http://localhost:8080/students/${sid}/plan`);
+    const resp = await axios.get(`http://localhost:8080/api/students/${sid}/plan`);
     return resp.data;
 }
 
 export async function getStudentSchedule(sid) {
-    const resp = await axios.get(`http://localhost:8080/students/${sid}/schedule`);
+    const resp = await axios.get(`http://localhost:8080/api/students/${sid}/schedule`);
     return resp.data;
 }
 
 export async function addCourse(sid, code, group) {
     const resp = await axios.post(
-        `http://localhost:8080/students/${sid}/schedule`,
+        `http://localhost:8080/api/students/${sid}/schedule`,
         {
             'group': group,
             'code': code
@@ -30,21 +30,21 @@ export async function addCourse(sid, code, group) {
 
 export async function resetSelection(sid) {
     const resp = await axios.delete(
-        `http://localhost:8080/students/${sid}/schedule`
+        `http://localhost:8080/api/students/${sid}/schedule`
     );
     return resp.data;
 }
 
 export async function removeFromSchedule(sid, code, group) {
     const resp = await axios.delete(
-        `http://localhost:8080/students/${sid}/schedule/${code}/${group}`
+        `http://localhost:8080/api/students/${sid}/schedule/${code}/${group}`
     );
     return resp.data;
 }
 
 export async function finalizeSelection(sid) {
     const resp = await axios.post(
-        `http://localhost:8080/students/${sid}/schedule/finalize`
+        `http://localhost:8080/api/students/${sid}/schedule/finalize`
     );
     return resp.data;
 }
