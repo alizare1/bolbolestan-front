@@ -129,7 +129,8 @@ function Offerings({submitHandler,courses,type, setType,filter,scheduleHandler})
                 <table className="courses">
                     {thead}
                     <tbody>
-                        {filterCourses().map((course) => <OfferingsTR course={course} scheduleHandler={scheduleHandler}/>)}
+                        {filterCourses().map((course) => <OfferingsTR courses={courses} course={course}
+                                                                      scheduleHandler={scheduleHandler}/>)}
                     </tbody>
                 </table>
         </div>
@@ -279,13 +280,14 @@ function SelectedCourses({schedule, unitCount, setSchedule}){
     );
 }
 
-function OfferingsTR({course,scheduleHandler}) {
+function OfferingsTR({courses,course,scheduleHandler}) {
     const types = {
         'Takhasosi': 'تخصصی',
         'Asli': 'اصلی',
         'Umumi': 'عمومی',
         'Paaye': 'پایه'
     };
+
     return (
         <tr>
             <td><Icon course={course} setSchedule={scheduleHandler}/></td>
@@ -299,7 +301,9 @@ function OfferingsTR({course,scheduleHandler}) {
             </td>
             <td>{course.name}</td>
             <td>{course.instructor}</td>
-            <td>{course.units}</td>
+            <td className="tool-tip">{course.units}
+            <Description courses={courses} prerequisites={course.prerequisites}
+                         classTime={course.classTime} examTime={course.examTime}/></td>
             <td></td>
         </tr>
     );
@@ -380,4 +384,44 @@ function FilterBtn(props){
     );
 }
 
+function Description({courses,prerequisites,classTime,examTime}){
+
+    const days = {
+        "Saturday": "شنبه",
+        "Sunday": "یک‌شنبه",
+        "Monday": "دو‌شنبه",
+        "Tuesday": "سه‌شنبه",
+        "Wednesday": "چهار‌شنبه",
+        "Thursday": "پنج‌شنبه"
+    };
+
+    const classTimeDays = (classDays) => classDays.map(day => days[day]).join("-");
+
+    const findPrerequisitesNames = (prerequisites) => {
+        const findClassName = (code) => courses.find(course => course.code === code).name;
+        const pNames = prerequisites.map(pCode => findClassName(pCode)).join("-");
+        return pNames;
+    }
+
+    const ExamTime = (start,end) => {
+        const [day,startTime] = start.split("T");
+        const [y,m,d] = day.split("-");
+        const endTime = end.split("T")[1];
+        const  getTime = (time) => Number(time.slice(0,2)) + ":" + time.slice(3,5);
+        return getTime(startTime) + "-" + getTime(endTime)+ "-" + Number(m) + "/" + Number(d);
+    }
+
+    return(
+        <div className="tooltip-text">
+            <span>{classTime.time}</span>
+            <span >{classTimeDays(classTime.days)}</span>
+            <span>پیش نیازی ها
+            </span>
+            <span>{findPrerequisitesNames(prerequisites)}</span>
+            <span>امتحان</span>
+            <span>{ExamTime(examTime.start,examTime.end)}</span>
+        </div>
+    );
+
+}
 export default Courses;
