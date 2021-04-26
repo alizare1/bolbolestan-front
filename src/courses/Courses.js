@@ -220,7 +220,7 @@ function SelectionInfo({unitCount, setSchedule}) {
                     <button onClick={reset} className="refresh-btn" type="submit" name="action" value="reset">
                         {resetLoading ? <Spinner as='span' size='sm' role='status' animation="border" /> : <i className="flaticon-refresh-arrow"></i>}
                     </button>
-                    <button style={submitStyle} onClick={finalize} className="submit-btn" type="submit" name="action" value="submit">
+                    <button style={submitStyle} onClick={finalize} className="submit-button" type="submit" name="action" value="submit">
                         {submitLoading ? <Spinner as='p' size='sm-1' role='status' animation="border" /> : 'ثبت نهایی'}
                     </button>
                 </span>
