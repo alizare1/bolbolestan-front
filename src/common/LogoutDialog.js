@@ -13,6 +13,7 @@ function LogoutDialog(props) {
     const handleShow = () => setShow(true);
     const logout = () => {
         localStorage.removeItem('username');
+        localStorage.removeItem('token');
         handleClose();
         props.setLoggedIn(false);
     }
