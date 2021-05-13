@@ -128,10 +128,29 @@ function GradeReport(props) {
 }
 
 function HomeBody(props) {
+
+    const getStudentWithGpaUnits = () => {
+        let gradeSum = 0;
+        let unitSum = 0;
+        let passedUnitSum = 0;
+
+        Object.values(props.student.grades).map(term => {
+            term.map(c => {
+                unitSum += c.units;
+                gradeSum += c.units * c.grade;
+                if (c.grade >= 10)
+                    passedUnitSum += c.units;
+            });
+        });
+
+        props.student.gpa = gradeSum/unitSum;
+        props.student.passedUnitsCount = passedUnitSum;
+        return props.student;
+    }
     return (
         <div className="container-fluid">
             <div className="row">
-                <Profile student={props.student} />
+                <Profile student={getStudentWithGpaUnits()} />
                 <GradeReport grades={props.student.grades}/>
             </div>
         </div>
