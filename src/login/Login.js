@@ -17,21 +17,23 @@ function Login(props) {
     useEffect(() => document.title = 'ورود',[]);
 
     useEffect(() => {
-        getStudent(getUsername())
-        .then(st => {
-            props.setStudent(st);
-            props.setLoggedIn(true);
-        }).catch(error => {
-            if (error.response) {
-                console.log(error.response.data);
-                toast.error(error.response.data.error);
-            }
-            else {
-                console.log('Login: server down?');
-                toast.error('مشکل در ارتباط با سرور');
-            }
-            setLoading(false);
-        });
+        if (gotToken) {
+            getStudent(getUsername())
+            .then(st => {
+                props.setStudent(st);
+                props.setLoggedIn(true);
+            }).catch(error => {
+                if (error.response) {
+                    console.log(error.response.data);
+                    toast.error(error.response.data.error);
+                }
+                else {
+                    console.log('Login: server down?');
+                    toast.error('مشکل در ارتباط با سرور');
+                }
+                setLoading(false);
+            });
+        }
     }, [gotToken]);
 
     function submitName(e) {
