@@ -2,27 +2,25 @@ import { Fragment, useEffect, useState } from "react";
 import { Spinner } from "react-bootstrap";
 import { Redirect } from "react-router";
 import { toast } from "react-toastify";
-import { saveUsername, userExists } from "../services/SessionUtils";
+import { login } from "../services/Auth";
+import { getUsername, saveToken, saveUsername, userExists } from "../services/SessionUtils";
 import { getStudent } from "../services/Students";
 import './login.css';
 
 
 function Login(props) {
-    const [name, setName] = useState('');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
     const [loading, setLoading] = useState(false);
+    const [gotToken, setGotToken] = useState(false);
+    
     useEffect(() => document.title = 'ورود',[]);
 
-    function submitName(e) {
-        e.preventDefault();
-        if (!name)
-            return;
-        setLoading(true);
-        getStudent(name)
+    useEffect(() => {
+        getStudent(getUsername())
         .then(st => {
             props.setStudent(st);
-            saveUsername(name);
             props.setLoggedIn(true);
-            console.log(name);
         }).catch(error => {
             if (error.response) {
                 console.log(error.response.data);
@@ -34,6 +32,32 @@ function Login(props) {
             }
             setLoading(false);
         });
+    }, [gotToken]);
+
+    function submitName(e) {
+        e.preventDefault();
+        if (!email || !password)
+            return;
+        setLoading(true);
+        login(email, password)
+        .then(resp => {
+            console.log(resp);
+            saveToken(resp.token);
+            saveUsername(resp.sid);
+            setGotToken(true);
+        })
+        .catch(error => {
+            if (error.response) {
+                console.log(error.response.data);
+                toast.error(error.response.data.error);
+            }
+            else {
+                console.log('Login: server down?');
+                toast.error('مشکل در ارتباط با سرور');
+            }
+            setLoading(false);
+            return;
+        })
     }
 
     const btnStyle = {
@@ -47,8 +71,8 @@ function Login(props) {
                 <Fragment>
                 <div className="sign">ورود</div>
                 <form className="form">
-                    <input required={true} onChange={e => setName(e.target.value)} className="form-input" type="text"  placeholder="ایمیل" />
-                    <input className="form-input" type="password"  placeholder="رمز عبور" />
+                    <input required={true} onChange={e => setEmail(e.target.value)} className="form-input" type="text"  placeholder="ایمیل" />
+                    <input required={true} onChange={e => setPassword(e.target.value)} className="form-input" type="password"  placeholder="رمز عبور" />
                     <button style={btnStyle} onClick={e => submitName(e)} type="submit" className="submit-btn" >
                         {loading ? <Spinner as='span' size='sm-1' role='status' animation="border" /> : 'ورود'}
                     </button>
