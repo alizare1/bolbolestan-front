@@ -31,7 +31,7 @@ function NonAuthLinks() {
         <div>
             <img src={logo} alt="logo" />
             <Link to="/login">ورود</Link>
-            <Link to="/resetPassword">فراموشی رمز عبور</Link>
+            <Link to="/signup">ثبت‌نام</Link>
         </div>
     )
 }

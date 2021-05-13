@@ -1,6 +1,7 @@
 import { Fragment, useEffect, useState } from "react";
 import { Spinner } from "react-bootstrap";
 import { Redirect } from "react-router";
+import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import { login } from "../services/Auth";
 import { getUsername, saveToken, saveUsername, userExists } from "../services/SessionUtils";
@@ -78,6 +79,7 @@ function Login(props) {
                     <button style={btnStyle} onClick={e => submitName(e)} type="submit" className="submit-btn" >
                         {loading ? <Spinner as='span' size='sm-1' role='status' animation="border" /> : 'ورود'}
                     </button>
+                    <Link to='/resetPassword'>فراموشی رمز عبور</Link>
                 </form>
                 </Fragment>
             </div>
