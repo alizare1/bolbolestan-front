@@ -18,6 +18,8 @@ import SignUp from './signUp/SignUp';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Spinner } from 'react-bootstrap';
+import ResetPassword from './ResetPassword/ResetPassword';
+import SetNewPassword from './ResetPassword/SetNewPassword';
 
 
 export function TestHook() {
@@ -94,8 +96,16 @@ function App() {
         <Route path='/home' children={<Home student={student} />} />
         <Route path='/schedule' children={<Schedule term={term} />} />
         <Route path='/courses' children={<Courses />} />
-        <Route path='/signup' children={<SignUp/>} />
         <Route children={<Home student={student} />} /> {/* fallback */}
+      </Switch>
+  )
+
+  const nonAuthRoutes = (
+    <Switch>
+        <Route path='/resetPassword' children={<ResetPassword />} exact />
+        <Route path='/signup' children={<SignUp/>} />
+        <Route path='/setNewPassword/:token' children={<SetNewPassword />} />
+        <Route children={<Login setLoggedIn={setLoggedIn} setStudent={setStudent} />} />
       </Switch>
   )
 
@@ -104,7 +114,7 @@ function App() {
       <NavBar loggedIn={loggedIn} setLoggedIn={setLoggedIn} />
       <div className="wrapper">
         {loading ? <div className='text-center'> <Spinner animation="border" variant='info' /> </div> :
-        loggedIn ? routes : <Login setLoggedIn={setLoggedIn} setStudent={setStudent} />
+        loggedIn ? routes : nonAuthRoutes
         }
       </div>
       <ToastContainer position='bottom-right' rtl={true} />
