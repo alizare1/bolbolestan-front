@@ -26,6 +26,16 @@ function ScheduleLinks(props) {
     )
 }
 
+function NonAuthLinks() {
+    return (
+        <div>
+            <img src={logo} alt="logo" />
+            <Link to="/login">ورود</Link>
+            <Link to="/resetPassword">فراموشی رمز عبور</Link>
+        </div>
+    )
+}
+
 function CoursesLinks(props) {
     return (
         <div>
@@ -44,7 +54,7 @@ function NavBar(props) {
                         <Route path='/home/' component={HomeLinks} />
                         <Route path='/schedule/' component={ScheduleLinks} />
                         <Route path='/courses/' component={CoursesLinks} />
-                        <Route component={HomeLinks} />
+                        <Route component={NonAuthLinks} />
                     </Switch>
                 <div>
                     { props.loggedIn && <LogoutDialog setLoggedIn={props.setLoggedIn} />}
