@@ -3,6 +3,7 @@ import { Spinner } from "react-bootstrap";
 import { toast } from "react-toastify";
 import { resetPassword } from "../services/Auth";
 import '../login/login.css';
+import { useForm } from "react-hook-form";
 
 
 function ResetPassword(props) {
@@ -10,10 +11,10 @@ function ResetPassword(props) {
     const [loading, setLoading] = useState(false);
     
     useEffect(() => document.title = 'فراموشی رمز',[]);
+    const { register, handleSubmit, formState: {errors} } = useForm({mode: 'onBlur'});
 
 
-    function onClick(e) {
-        e.preventDefault();
+    function onClick(data) {
         if (!email)
             return;
         setLoading(true);
@@ -45,9 +46,9 @@ function ResetPassword(props) {
             <div className="form-container">
                 <Fragment>
                 <div className="sign">فراموشی رمز عبور</div>
-                <form className="form">
-                    <input required={true} onChange={e => setEmail(e.target.value)} className="form-input" type="email"  placeholder="ایمیل" />
-                    <button style={btnStyle} onClick={onClick} type="submit" className="submit-btn" >
+                <form className="form" onSubmit={handleSubmit(onClick)}>
+                    <input {...register('email', {required: true})} style={{borderColor: errors.email && "red" }} onChange={e => setEmail(e.target.value)} className="form-input" name='email' type="email"  placeholder="ایمیل" />
+                    <button style={btnStyle} type="submit" className="submit-btn" >
                         {loading ? <Spinner as='span' size='sm-1' role='status' animation="border" /> : 'ارسال'}
                     </button>
                 </form>

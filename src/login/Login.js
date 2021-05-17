@@ -1,5 +1,6 @@
 import { Fragment, useEffect, useState } from "react";
 import { Spinner } from "react-bootstrap";
+import { useForm } from "react-hook-form";
 import { Redirect } from "react-router";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -14,6 +15,7 @@ function Login(props) {
     const [password, setPassword] = useState('');
     const [loading, setLoading] = useState(false);
     const [gotToken, setGotToken] = useState(false);
+    const { register, handleSubmit} = useForm({mode: 'onBlur'});
     
     useEffect(() => document.title = 'ورود',[]);
 
@@ -37,8 +39,7 @@ function Login(props) {
         }
     }, [gotToken]);
 
-    function submitName(e) {
-        e.preventDefault();
+    function submitName(data) {
         if (!email || !password)
             return;
         setLoading(true);
@@ -73,10 +74,10 @@ function Login(props) {
             <div className="form-container">
                 <Fragment>
                 <div className="sign">ورود</div>
-                <form className="form">
-                    <input required={true} onChange={e => setEmail(e.target.value)} className="form-input" type="text"  placeholder="ایمیل" />
-                    <input required={true} onChange={e => setPassword(e.target.value)} className="form-input" type="password"  placeholder="رمز عبور" />
-                    <button style={btnStyle} onClick={e => submitName(e)} type="submit" className="submit-btn" >
+                <form className="form" onSubmit={handleSubmit(submitName)}>
+                    <input {...register('email', {required: true})} onChange={e => setEmail(e.target.value)} className="form-input" type="email"  placeholder="ایمیل" />
+                    <input {...register('password', {required: true})} onChange={e => setPassword(e.target.value)} className="form-input" type="password"  placeholder="رمز عبور" />
+                    <button style={btnStyle} type="submit" className="submit-btn" >
                         {loading ? <Spinner as='span' size='sm-1' role='status' animation="border" /> : 'ورود'}
                     </button>
                     <Link to='/resetPassword'>فراموشی رمز عبور</Link>
