@@ -12,7 +12,7 @@ import {signup} from "../services/Auth";
 function SignUp(props) {
     useEffect(() => document.title = 'ثبت نام',[]);
 
-    const { register, handleSubmit, errors } = useForm();
+    const { register, handleSubmit, formState: { errors } } = useForm({mode: 'onBlur'});
 
     const history = useHistory();
 
@@ -45,31 +45,40 @@ function SignUp(props) {
                     <div className="sign">ثبت نام</div>
                     <form className="form" onSubmit={handleSubmit(onSubmit)}>
                         <label> نام</label>
-                        <input {...register('name', {required: true})} name='name' className="form-input" type="text" />
+                        {errors.name && <span style={{color: 'red'}}>فیلد نمی‌تواند خالی باشد!</span>}
+                        <input {...register('name', {required: true})} name='name' placeholder='حمید' className="form-input" type="text" />
 
                         <label>نام خانوادگی</label>
-                        <input {...register('secondName', {required: true})} name='secondName' className="form-input" type="text" />
+                        {errors.secondName && <span style={{color: 'red'}}>فیلد نمی‌تواند خالی باشد!</span>}
+                        <input {...register('secondName', {required: true})} name='secondName' placeholder='حمیدی' className="form-input" type="text" />
 
                         <label> شماره دانشجویی</label>
-                        <input {...register('id', {required: true, minLength:9, maxLength:9})} name='id' className="form-input" type='text' pattern='[0-9]*'   />
+                        {errors.id && <span style={{color: 'red'}}>فرمت شماره دانشجویی صحیح نیست!</span>}
+                        <input {...register('id', {required: true, minLength:9, maxLength:9})} name='id' placeholder='810197499' className="form-input" type='text' pattern='[0-9]*'   />
 
                         <label>تاریخ تولد</label>
-                        <input {...register('birthDate', {required: true})} name='birthDate' className="form-input" type="text" />
+                        {errors.birthDate && <span style={{color: 'red'}}>تاریخ درست وارد نشده!</span>}
+                        <input {...register('birthDate', {required: true, pattern: {value: /13[5-8][0-9]\/(0[1-9]|(10|11|12))\/(0[1-9]|[1-3][0-9])/i, message: 'Invalid date'}})} name='birthDate' placeholder='1379/07/21' className="form-input" type="text" />
 
                         <label> رشته</label>
-                        <input {...register('field', {required: true})} name='field' className="form-input" type="text"  />
+                        {errors.field && <span style={{color: 'red'}}>فیلد نمی‌تواند خالی باشد!</span>}
+                        <input {...register('field', {required: true})} name='field' placeholder='مهندسی کامپیوتر' className="form-input" type="text"  />
 
                         <label> دانشکده</label>
-                        <input {...register('faculty', {required: true})} name='faculty' className="form-input" type="text" />
+                        {errors.faculty && <span style={{color: 'red'}}>فیلد نمی‌تواند خالی باشد!</span>}
+                        <input {...register('faculty', {required: true})} name='faculty' placeholder='برق و کامپیوتر' className="form-input" type="text" />
 
                         <label>مقطع</label>
-                        <input {...register('level', {required: true})} name='level' className="form-input" type="text"  />
+                        {errors.level && <span style={{color: 'red'}}>فیلد نمی‌تواند خالی باشد!</span>}
+                        <input {...register('level', {required: true})} name='level' placeholder='کارشناسی' className="form-input" type="text"  />
 
                         <label>ایمیل</label>
-                        <input {...register('email', {required: true})} name='email' className="form-input" type="email"  />
+                        {errors.name && <span style={{color: 'red'}}>ایمیل صحیح نیست!</span>}
+                        <input {...register('email', {required: true})} name='email' placeholder='hamid@ut.ac.ir' className="form-input" type="email"  />
 
                         <label> رمز عبور</label>
-                        <input {...register('password', {required: true})} name='password' className="form-input" type="password"  />
+                        {errors.password && <span style={{color: 'red'}}>فیلد نمی‌تواند خالی باشد!</span>}
+                        <input {...register('password', {required: true})} name='password' placeholder='****' className="form-input" type="password"  />
                         <button style={btnStyle}  type="submit" className="submit-btn" >
                           ثبت نام
                         </button>
