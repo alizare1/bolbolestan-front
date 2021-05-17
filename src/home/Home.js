@@ -4,7 +4,7 @@ import coverPhoto from '../common/cover_photo.jpg';
 import { getStudent } from '../services/Students';
 import { Fragment, useEffect, useState } from 'react';
 import { Spinner } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 
 
 function MyCarousel(props) {
@@ -159,7 +159,11 @@ function HomeBody(props) {
 
 
 function Home(props) {
-    useEffect(() => document.title = 'خانه',[]);
+    const history = useHistory();
+    useEffect(() => {
+        history.replace('home');
+        document.title = 'خانه';
+    },[]);
 
     return (
         <div className="wrapper home-div">

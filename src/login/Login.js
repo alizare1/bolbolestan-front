@@ -1,7 +1,7 @@
 import { Fragment, useEffect, useState } from "react";
 import { Spinner } from "react-bootstrap";
 import { useForm } from "react-hook-form";
-import { Redirect } from "react-router";
+import { Redirect, useHistory } from "react-router";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import { login } from "../services/Auth";
@@ -16,8 +16,12 @@ function Login(props) {
     const [loading, setLoading] = useState(false);
     const [gotToken, setGotToken] = useState(false);
     const { register, handleSubmit} = useForm({mode: 'onBlur'});
+    const history = useHistory();
     
-    useEffect(() => document.title = 'ورود',[]);
+    useEffect(() => {
+        history.replace('login');
+        document.title = 'ورود';
+    },[]);
 
     useEffect(() => {
         if (gotToken) {
