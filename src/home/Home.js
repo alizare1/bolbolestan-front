@@ -143,7 +143,7 @@ function HomeBody(props) {
             });
         });
 
-        props.student.gpa = gradeSum/unitSum;
+        props.student.gpa = unitSum ? gradeSum/unitSum : 0;
         props.student.passedUnitsCount = passedUnitSum;
         return props.student;
     }
