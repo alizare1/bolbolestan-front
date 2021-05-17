@@ -51,7 +51,7 @@ function SetNewPassword(props) {
                 <Fragment>
                 <div className="sign">تغییر رمز</div>
                 <form className="form">
-                    <input required={true} onChange={e => setPassword(e.target.value)} className="form-input" type="text"  placeholder="رمز جدید" />
+                    <input required={true} onChange={e => setPassword(e.target.value)} className="form-input" type="password"  placeholder="رمز جدید" />
                     <button style={btnStyle} onClick={onClick} type="submit" className="submit-btn" >
                         {loading ? <Spinner as='span' size='sm-1' role='status' animation="border" /> : 'تغییر'}
                     </button>
