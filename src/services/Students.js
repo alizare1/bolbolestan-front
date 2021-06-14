@@ -4,23 +4,23 @@ import { getAuthHeader } from "./SessionUtils";
 
 
 export async function getStudent(sid) {
-    const resp = await axios.get('http://localhost:8080/api/students/' + sid, getAuthHeader());
+    const resp = await axios.get('http://87.247.185.122:31008/api/students/' + sid, getAuthHeader());
     return resp.data;
 }
 
 export async function getStudentPlan(sid) {
-    const resp = await axios.get(`http://localhost:8080/api/students/${sid}/plan`, getAuthHeader());
+    const resp = await axios.get(`http://87.247.185.122:31008/api/students/${sid}/plan`, getAuthHeader());
     return resp.data;
 }
 
 export async function getStudentSchedule(sid) {
-    const resp = await axios.get(`http://localhost:8080/api/students/${sid}/schedule`, getAuthHeader());
+    const resp = await axios.get(`http://87.247.185.122:31008/api/students/${sid}/schedule`, getAuthHeader());
     return resp.data;
 }
 
 export async function addCourse(sid, code, group) {
     const resp = await axios.post(
-        `http://localhost:8080/api/students/${sid}/schedule`,
+        `http://87.247.185.122:31008/api/students/${sid}/schedule`,
         {
             'group': group,
             'code': code
@@ -32,7 +32,7 @@ export async function addCourse(sid, code, group) {
 
 export async function resetSelection(sid) {
     const resp = await axios.delete(
-        `http://localhost:8080/api/students/${sid}/schedule`,
+        `http://87.247.185.122:31008/api/students/${sid}/schedule`,
         getAuthHeader()
     );
     return resp.data;
@@ -40,7 +40,7 @@ export async function resetSelection(sid) {
 
 export async function removeFromSchedule(sid, code, group) {
     const resp = await axios.delete(
-        `http://localhost:8080/api/students/${sid}/schedule/${code}/${group}`,
+        `http://87.247.185.122:31008/api/students/${sid}/schedule/${code}/${group}`,
         getAuthHeader()
     );
     return resp.data;
@@ -48,7 +48,7 @@ export async function removeFromSchedule(sid, code, group) {
 
 export async function finalizeSelection(sid) {
     const resp = await axios.post(
-        `http://localhost:8080/api/students/${sid}/schedule/finalize`, 
+        `http://87.247.185.122:31008/api/students/${sid}/schedule/finalize`, 
         {},
         getAuthHeader()
     );
