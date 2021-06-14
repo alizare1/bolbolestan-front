@@ -28,6 +28,6 @@ deploy:
   stage: deploy
   when: manual
   script:
-    - kubectl --kubeconfig $KUBE_CONFIG set image deployment/front server=quay.io/alizare1/bolbolestan-front:$CI_BUILD_REF
+    - kubectl --kubeconfig $KUBE_CONFIG set image deployment/front front=quay.io/alizare1/bolbolestan-front:$CI_BUILD_REF
 
 
