@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: front
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: front
+  template:
+    metadata:
+      labels:
+        app: front
+    spec:
+      containers:
+      - name: front
+        image: quay.io/alizare1/bolbolestan:front
+        imagePullPolicy: Always
+        ports:
+          - name: http
+            containerPort: 80
+        resources:
+          limits:
+            cpu: 0.2
+            memory: "50Mi"
